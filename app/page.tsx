@@ -343,16 +343,14 @@ function BarberApp({ tab, setTab, isOpen, tickets, current, candidate, skipped, 
 function BarberDashboard({ isOpen, tickets, current, candidate, skipped, waitingCount, onFinish, onBegin, onSkip, onDefer, onOpen, onClose }: any) {
   return <>
     <div className="barber-head">
-      <div><p>7月31日 · 星期五</p><h2>陈师傅，下午好</h2></div>
+      <div><p>7月31日 · 星期五</p><h2>陈师傅，下午好</h2><small className="today-completed">今日完成 {tickets.filter((t: Ticket) => t.status === "done").length + 7} 人</small></div>
       <button className={`shop-switch ${isOpen ? "on" : ""}`} onClick={isOpen ? onClose : onOpen}><i />{isOpen ? "营业中" : "开始营业"}</button>
     </div>
-    <div className="location-banner"><span>⌖</span><div><small>本次营业地址</small><b>梧桐路社区广场东侧</b></div><button>导航</button></div>
-    {!isOpen ? <div className="closed-dashboard"><div>休</div><h3>今天尚未营业</h3><p>选择本次服务地址，开启今天的排队。</p><button onClick={onOpen}>选择地址并开店</button></div> : <>
-      <div className="work-metrics"><div><small>等待</small><b>{waitingCount}<em>人</em></b></div><div><small>预计服务完</small><b>{waitingCount * 15}<em>分钟</em></b></div><div><small>今日完成</small><b>{tickets.filter((t: Ticket) => t.status === "done").length + 7}<em>人</em></b></div></div>
+    {!isOpen ? <><div className="location-banner"><span>⌖</span><div><small>上次营业地址</small><b>梧桐路社区广场东侧</b></div><button onClick={onOpen}>修改</button></div><div className="closed-dashboard"><div>休</div><h3>今天尚未营业</h3><p>选择本次服务地址，开启今天的排队。</p><button onClick={onOpen}>选择地址并开店</button></div></> : <>
       {current ? <div className="service-card current">
         <div className="card-tag"><span className="pulse" />正在服务</div>
         <div className="big-ticket"><div><small>当前号码</small><strong>{current.no}</strong></div><span /><div><small>手机尾号</small><strong>{current.phone}</strong></div></div>
-        <div className="timer">已服务 <b>12</b> 分钟 <span>· 平均 15 分钟</span></div>
+        <div className="timer">等待 <b>{waitingCount}</b> 人 <span>· 预计全部完成 {waitingCount * 15} 分钟</span></div>
         <button className="complete-btn" onClick={onFinish}>完成服务</button>
       </div> : <div className="service-card idle"><span>✂</span><h3>当前没有正在服务的用户</h3><p>核验下一位用户后开始服务</p></div>}
       {candidate && !current && <div className="service-card next">
@@ -360,6 +358,7 @@ function BarberDashboard({ isOpen, tickets, current, candidate, skipped, waiting
         <div className="big-ticket"><div><small>号码</small><strong>{candidate.no}</strong></div><span /><div><small>手机尾号</small><strong>{candidate.phone}</strong></div></div>
         <div className="dual-actions"><button onClick={onSkip}>未到场 / 跳号</button><button onClick={onBegin}>开始服务</button></div>
       </div>}
+      <div className="location-banner"><span>⌖</span><div><small>本次营业地址</small><b>梧桐路社区广场东侧</b></div><button onClick={onOpen}>修改</button></div>
       <div className="queue-overview">
         <div className="section-title"><h3>排队总览</h3><span>全部 {tickets.filter((t: Ticket) => !["done", "cancelled"].includes(t.status)).length} 人 ›</span></div>
         <div className="queue-chips">{tickets.filter((t: Ticket) => !["done", "cancelled"].includes(t.status)).slice(0, 7).map((t: Ticket) => <div className={t.status} key={t.id}><b>{t.no}</b><small>{statusLabel[t.status]}</small></div>)}</div>

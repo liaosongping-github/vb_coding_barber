@@ -332,10 +332,10 @@ function UserProfile({ notify }: any) {
 }
 
 function BarberApp({ tab, setTab, isOpen, tickets, current, candidate, skipped, waitingCount, onFinish, onBegin, onSkip, onDefer, onOpen, onClose }: any) {
-  const labels = ["工作台", "记录", "我的"];
+  const labels = ["工作台", "数据", "我的"];
   return <div className="app barber-app"><div className="app-content">
     {tab === "工作台" ? <BarberDashboard {...{ isOpen, tickets, current, candidate, skipped, waitingCount, onFinish, onBegin, onSkip, onDefer, onOpen, onClose }} />
-      : tab === "记录" ? <Records tickets={tickets} />
+      : tab === "数据" ? <Records tickets={tickets} />
       : <BarberProfile />}
   </div><BottomNav labels={labels} active={tab} onChange={setTab} icons={["▦", "◷", "○"]} /></div>;
 }
@@ -369,11 +369,14 @@ function BarberDashboard({ isOpen, tickets, current, candidate, skipped, waiting
 }
 
 function Records({ tickets }: any) {
-  return <><div className="simple-header"><h2>服务记录</h2><button>筛选⌄</button></div><div className="date-strip"><button>‹</button><div><b>今天</b><span>7月31日</span></div><button>›</button></div><div className="record-summary"><div><b>12</b><span>取号</span></div><div><b>7</b><span>完成</span></div><div><b>{tickets.filter((t: Ticket) => t.status === "skipped").length}</b><span>过号</span></div></div><div className="timeline">{tickets.slice().reverse().map((t: Ticket) => <div key={t.id}><i className={t.status} /><time>{t.status === "done" ? "14:18" : "等待"}</time><b>{t.no}</b><span>尾号 {t.phone}</span><em>{statusLabel[t.status]}</em></div>)}</div></>;
+  const completed = tickets.filter((t: Ticket) => t.status === "done").length + 7;
+  const skippedCount = tickets.filter((t: Ticket) => t.status === "skipped").length;
+  const cancelled = tickets.filter((t: Ticket) => t.status === "cancelled").length + 2;
+  return <><div className="simple-header"><h2>数据看板</h2><button>日历⌄</button></div><div className="date-strip"><button>‹</button><div><b>今天</b><span>7月31日</span></div><button>›</button></div><div className="revenue-card"><small>今日营业额</small><strong>¥ {completed * 25}</strong><p>共完成 {completed} 位客户</p></div><div className="data-metrics"><div><span className="metric-icon done">✓</span><b>{completed}</b><small>完成服务</small></div><div><span className="metric-icon skipped">!</span><b>{skippedCount}</b><small>过号</small></div><div><span className="metric-icon cancelled">×</span><b>{cancelled}</b><small>取消</small></div></div><div className="data-note"><b>今日经营概况</b><p>营业额按参考价 ¥25 × 完成服务数估算，实际金额以现场收款为准。</p></div></>;
 }
 
 function BarberProfile() {
-  return <><div className="profile-head barber-profile"><div className="profile-avatar">陈</div><div><h2>陈师傅</h2><p>账号已认证 · 社区理发摊</p></div><span className="open">正常</span></div><div className="settings-list"><button><span>▣</span>营业资料<i>›</i></button><button><span>⌖</span>我的地址簿<i>3 个 ›</i></button><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均服务时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 1.0</div></>;
+  return <><div className="profile-head barber-profile"><div className="profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>⌖</span>营业地址<i>3 个 ›</i></button><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 1.0</div></>;
 }
 
 function AdminApp({ tab, setTab, tickets, isOpen, notify }: any) {

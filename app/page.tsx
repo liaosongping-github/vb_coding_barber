@@ -19,6 +19,8 @@ const initialTickets: Ticket[] = [
   { id: 22, no: "A022", phone: "4420", status: "waiting", owner: true },
   { id: 23, no: "A023", phone: "9066", status: "waiting" },
   { id: 2003, no: "B003", phone: "4420", status: "waiting", owner: true, barberId: 2 },
+  { id: 14, no: "A014", phone: "4420", status: "skipped", owner: true, barberId: 1 },
+  { id: 2002, no: "B002", phone: "4420", status: "done", owner: true, barberId: 2 },
 ];
 
 const statusLabel: Record<TicketStatus, string> = {
@@ -183,7 +185,8 @@ export default function Home() {
 }
 
 function UserApp({ tab, setTab, detail, setDetail, tickets, joined, isOpen, onJoin, onCancel, notify }: any) {
-  const myTickets = tickets.filter((t: Ticket) => t.owner && !["done", "cancelled"].includes(t.status));
+  const myTickets = tickets.filter((t: Ticket) => t.owner && t.status !== "cancelled");
+  const activeMyTickets = myTickets.filter((t: Ticket) => !["done", "skipped"].includes(t.status));
   const labels = ["首页", "排队", "收藏", "我的"];
   return (
     <div className="app user-app">
@@ -194,7 +197,7 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, joined, isOpen, onJo
           : tab === "收藏" ? <Favorites onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
           : <UserProfile notify={notify} />}
       </div>
-      {!detail && <BottomNav labels={labels} active={tab} onChange={setTab} icons={["⌂", "≋", "♡", "○"]} badge={myTickets.length || undefined} />}
+      {!detail && <BottomNav labels={labels} active={tab} onChange={setTab} icons={["⌂", "≋", "♡", "○"]} badge={activeMyTickets.length || undefined} />}
     </div>
   );
 }
@@ -286,29 +289,33 @@ function BarberDetail({ onBack, onJoin, isOpen }: any) {
 }
 
 function MyQueue({ tickets, onCancel, onBrowse }: any) {
+  const [queueTab, setQueueTab] = useState<"进行中" | "已过号" | "已完成">("进行中");
+  const visibleTickets = tickets.filter((ticket: Ticket) => queueTab === "进行中"
+    ? !["done", "skipped", "cancelled"].includes(ticket.status)
+    : queueTab === "已过号" ? ticket.status === "skipped" : ticket.status === "done");
   const groups = barbers.map(barber => ({
     barber,
-    tickets: tickets.filter((ticket: Ticket) => (ticket.barberId ?? 1) === barber.id),
+    tickets: visibleTickets.filter((ticket: Ticket) => (ticket.barberId ?? 1) === barber.id),
   })).filter(group => group.tickets.length > 0);
   return (
     <>
       <div className="simple-header"><h2>我的排队</h2><button>⋯</button></div>
-      <div className="segmented"><button className="active">进行中</button><button>已过号</button><button>已完成</button></div>
+      <div className="segmented">{(["进行中", "已过号", "已完成"] as const).map(label => <button key={label} className={queueTab === label ? "active" : ""} onClick={() => setQueueTab(label)}>{label}</button>)}</div>
       {groups.length ? groups.map(({ barber, tickets: barberTickets }) => <div className="my-queue-card" key={barber.id}>
-          <div className="queue-card-top"><div className={`mini-avatar ${barber.color}`}>{barber.name[0]}</div><div><h3>{barber.name}</h3><p>{barber.address}</p></div><span className="open">营业中</span></div>
+          <div className="queue-card-top"><div className={`mini-avatar ${barber.color}`}>{barber.name[0]}</div><div><h3>{barber.name}</h3><p>{barber.address}</p></div><span className={queueTab === "进行中" ? "open" : "closed"}>{queueTab === "进行中" ? "营业中" : queueTab}</span></div>
           <div className="ticket-stack">
             {barberTickets.map((t: Ticket, index: number) => <div className={`ticket-row ${t.status}`} key={t.id}>
               <div><small>{statusLabel[t.status]}</small><strong>{t.no}</strong></div>
-              <div><small>前方还有</small><b>{Math.max(0, barber.queue + index)} 人</b></div>
-              <div><small>预计等待</small><b>{Math.max(0, barber.wait + index * 15)} 分钟</b></div>
-              {["waiting", "verify"].includes(t.status) && <button onClick={() => onCancel(t.id)}>取消</button>}
+              {queueTab === "进行中" ? <><div><small>前方还有</small><b>{Math.max(0, barber.queue + index)} 人</b></div><div><small>预计等待</small><b>{Math.max(0, barber.wait + index * 15)} 分钟</b></div>{["waiting", "verify"].includes(t.status) && <button onClick={() => onCancel(t.id)}>取消</button>}</>
+                : queueTab === "已过号" ? <><div><small>过号时间</small><b>今天 14:06</b></div><div><small>下一步</small><b>现场沟通顺延</b></div></>
+                : <><div><small>完成时间</small><b>7月28日 16:20</b></div><div><small>服务地点</small><b>{barber.distance}</b></div></>}
             </div>)}
           </div>
-          <div className="queue-progress"><span style={{ width: barber.id === 1 ? "38%" : "56%" }} /></div>
-          <div className="reminder-line">◉ 前方剩 3 人时将通过微信提醒你</div>
-          <div className="card-actions"><button>联系信息</button><button className="primary">地图导航</button></div>
-        </div>) : <div className="empty-state"><div>≋</div><h3>还没有进行中的号码</h3><p>看看附近谁正在营业，线上取号后再出发。</p><button onClick={onBrowse}>去附近看看</button></div>}
-      <div className="tip-card"><b>同时排了多个理发师？</b><p>开始服务后，记得取消不再需要的其他号码，把位置留给邻居。</p></div>
+          {queueTab === "进行中" && <><div className="queue-progress"><span style={{ width: barber.id === 1 ? "38%" : "56%" }} /></div><div className="reminder-line">◉ 前方剩 3 人时将通过微信提醒你</div><div className="card-actions"><button>联系信息</button><button className="primary">地图导航</button></div></>}
+          {queueTab === "已过号" && <div className="card-actions"><button>查看详情</button><button className="primary">地图导航</button></div>}
+          {queueTab === "已完成" && <div className="card-actions"><button>服务详情</button><button className="primary">再次取号</button></div>}
+        </div>) : <div className="empty-state"><div>≋</div><h3>{queueTab === "进行中" ? "还没有进行中的号码" : queueTab === "已过号" ? "没有已过号的号码" : "还没有完成记录"}</h3><p>{queueTab === "进行中" ? "看看附近谁正在营业，线上取号后再出发。" : "相关记录会在这里统一展示。"}</p>{queueTab === "进行中" && <button onClick={onBrowse}>去附近看看</button>}</div>}
+      {queueTab === "进行中" && <div className="tip-card"><b>同时排了多个理发师？</b><p>开始服务后，记得取消不再需要的其他号码，把位置留给邻居。</p></div>}
     </>
   );
 }

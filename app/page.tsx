@@ -293,7 +293,7 @@ function MyQueue({ tickets, onCancel, onBrowse }: any) {
   return (
     <>
       <div className="simple-header"><h2>我的排队</h2><button>⋯</button></div>
-      <div className="segmented"><button className="active">进行中</button><button>已过号</button><button>历史记录</button></div>
+      <div className="segmented"><button className="active">进行中</button><button>已过号</button><button>已完成</button></div>
       {groups.length ? groups.map(({ barber, tickets: barberTickets }) => <div className="my-queue-card" key={barber.id}>
           <div className="queue-card-top"><div className={`mini-avatar ${barber.color}`}>{barber.name[0]}</div><div><h3>{barber.name}</h3><p>{barber.address}</p></div><span className="open">营业中</span></div>
           <div className="ticket-stack">

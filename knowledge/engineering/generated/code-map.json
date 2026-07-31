@@ -2,8 +2,8 @@
   "schema_version": 1,
   "product_version": "v0.1",
   "generated_from": {
-    "source_commit": "45435057224c36a464199357d4d00f2d4ec0f370",
-    "source_commit_date": "2026-07-31T22:32:28+08:00",
+    "source_commit": "9383ae17c2b062bfcea871f932dc49abf4dc43f8",
+    "source_commit_date": "2026-08-01T00:51:03+08:00",
     "source_tree_sha256": "914f4ca7612202a6d32a66f355096ec78fb17128cd7d2d854e1288c745503dbf"
   },
   "summary": {
@@ -312,5 +312,5 @@
   "tests": [
     "workspace/product/v0.1/prototype/tests/prototype.test.mjs"
   ],
-  "graph_sha256": "ac8545ef0b26fd247526ff9108588b40b5308e71ef7ffb740e5961db7fde7917"
+  "graph_sha256": "0093797ffeba53a2bb1bbf02ab8c6b0b46f6130dc306c039db23de45aed79a94"
 }

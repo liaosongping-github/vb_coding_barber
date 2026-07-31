@@ -18,6 +18,7 @@ const initialTickets: Ticket[] = [
   { id: 21, no: "A021", phone: "4420", status: "waiting", owner: true },
   { id: 22, no: "A022", phone: "4420", status: "waiting", owner: true },
   { id: 23, no: "A023", phone: "9066", status: "waiting" },
+  { id: 2003, no: "B003", phone: "4420", status: "waiting", owner: true, barberId: 2 },
 ];
 
 const statusLabel: Record<TicketStatus, string> = {
@@ -39,11 +40,20 @@ export default function Home() {
   const [joined, setJoined] = useState(false);
   const [joinBarberId, setJoinBarberId] = useState(1);
 
-  const live = tickets.filter(t => !["done", "cancelled", "skipped"].includes(t.status));
+  const primaryBarberTickets = tickets.filter(t => (t.barberId ?? 1) === 1);
+  const live = primaryBarberTickets.filter(t => !["done", "cancelled", "skipped"].includes(t.status));
   const waitingCount = live.filter(t => t.status !== "serving").length;
-  const current = tickets.find(t => t.status === "serving");
-  const candidate = tickets.find(t => t.status === "deferred") || tickets.find(t => t.status === "verify") || tickets.find(t => t.status === "waiting");
-  const skipped = tickets.filter(t => t.status === "skipped");
+  const current = primaryBarberTickets.find(t => t.status === "serving");
+  const candidate = primaryBarberTickets.find(t => t.status === "deferred") || primaryBarberTickets.find(t => t.status === "verify") || primaryBarberTickets.find(t => t.status === "waiting");
+  const skipped = primaryBarberTickets.filter(t => t.status === "skipped");
+  const joinTarget = barbers.find(b => b.id === joinBarberId) ?? barbers[0];
+  const joinNext = useMemo(() => {
+    const targetNumbers = tickets
+      .filter(t => (t.barberId ?? 1) === joinBarberId)
+      .map(t => Number(t.no.slice(1)))
+      .filter(Number.isFinite);
+    return Math.max(joinTarget.queue, ...targetNumbers) + 1;
+  }, [tickets, joinBarberId, joinTarget.queue]);
 
   const notify = (message: string) => {
     setToast(message);
@@ -63,8 +73,8 @@ export default function Home() {
   };
 
   const joinQueue = () => {
-    const target = barbers.find(b => b.id === joinBarberId) ?? barbers[0];
-    const next = joinBarberId === 1 ? 24 : target.queue + 1;
+    const target = joinTarget;
+    const next = joinNext;
     const prefix = joinBarberId === 1 ? "A" : "B";
     const created = Array.from({ length: people }, (_, i): Ticket => ({
       id: joinBarberId * 1000 + next + i, no: `${prefix}${String(next + i).padStart(3, "0")}`, phone: "4420", status: "waiting", owner: true, barberId: joinBarberId,
@@ -164,7 +174,7 @@ export default function Home() {
         </div>
       </section>
 
-      {modal === "join" && <JoinModal barber={barbers.find(b => b.id === joinBarberId) ?? barbers[0]} people={people} setPeople={setPeople} onClose={() => setModal(null)} onJoin={joinQueue} />}
+      {modal === "join" && <JoinModal barber={joinTarget} next={joinNext} people={people} setPeople={setPeople} onClose={() => setModal(null)} onJoin={joinQueue} />}
       {modal === "close" && <ConfirmClose count={waitingCount} serving={!!current} onClose={() => setModal(null)} onConfirm={forceClose} />}
       {modal === "address" && <AddressModal onClose={() => setModal(null)} onOpen={() => { setIsOpen(true); setModal(null); notify("已在梧桐路社区广场开店"); }} />}
       {toast && <div className="toast"><span>✓</span>{toast}</div>}
@@ -399,9 +409,8 @@ function BottomNav({ labels, active, onChange, icons, badge }: any) {
   return <nav className="bottom-nav">{labels.map((l: string, i: number) => <button key={l} className={active === l ? "active" : ""} onClick={() => onChange(l)}><span>{icons[i]}{i === 1 && badge ? <i>{badge}</i> : null}</span><small>{l === "排队" ? "我的排队" : l}</small></button>)}</nav>;
 }
 
-function JoinModal({ barber, people, setPeople, onClose, onJoin }: any) {
+function JoinModal({ barber, next, people, setPeople, onClose, onJoin }: any) {
   const prefix = barber.id === 1 ? "A" : "B";
-  const next = barber.id === 1 ? 24 : barber.queue + 1;
   const firstNo = `${prefix}${String(next).padStart(3, "0")}`;
   const lastNo = `${prefix}${String(next + people - 1).padStart(3, "0")}`;
   return <div className="modal-backdrop" onMouseDown={onClose}><div className="sheet" onMouseDown={e => e.stopPropagation()}><div className="grab" /><div className="sheet-head"><div><small>{barber.name} · 营业中</small><h2>选择取号人数</h2></div><button onClick={onClose}>×</button></div><p className="sheet-copy">同一次取号会生成连续号码，每个号码可独立取消。</p><div className="people-select">{[1,2,3].map(n => <button className={people === n ? "active" : ""} key={n} onClick={() => setPeople(n)}><b>{n}</b><span>{n === 1 ? "自己" : `${n} 人同行`}</span></button>)}</div><div className="join-summary"><div><span>预计号码</span><b>{people === 1 ? firstNo : `${firstNo}–${lastNo}`}</b></div><div><span>前方人数</span><b>{barber.queue} 人</b></div><div><span>预计等待</span><b>约 {barber.wait} 分钟</b></div></div><label className="consent"><input type="checkbox" defaultChecked /><span>接收前方剩 3 人及过号提醒</span></label><p className="fineprint">预计时间为动态估算；拒绝消息授权仍可取号，但可能错过叫号。</p><button className="sheet-primary" onClick={onJoin}>确认取 {people} 个号</button></div></div>;

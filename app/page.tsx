@@ -328,7 +328,7 @@ function Favorites({ onDetail, onJoin, isOpen }: any) {
 }
 
 function UserProfile({ notify }: any) {
-  return <><div className="profile-head"><div className="profile-avatar">林</div><div><h2>林先生</h2><p>微信用户 · 已登录</p></div></div><div className="settings-list"><button onClick={() => notify("手机号：138****4420，已绑定")}><span>▣</span>微信手机号<i>138****4420 ›</i></button><button onClick={() => notify("微信订阅消息：已授权")}><span>◎</span>消息提醒<i>已授权 ›</i></button><button onClick={() => notify("位置权限：使用时允许")}><span>⌖</span>位置权限<i>使用时允许 ›</i></button><button><span>?</span>帮助与反馈<i>›</i></button></div></>;
+  return <><div className="profile-head"><div className="profile-avatar">林</div><div><h2>林先生</h2><p>138****4420</p></div></div><div className="settings-list"><button onClick={() => notify("微信订阅消息：已授权")}><span>◎</span>消息提醒<i>已授权 ›</i></button><button onClick={() => notify("位置权限：使用时允许")}><span>⌖</span>位置权限<i>使用时允许 ›</i></button><button><span>?</span>帮助与反馈<i>›</i></button></div></>;
 }
 
 function BarberApp({ tab, setTab, isOpen, tickets, current, candidate, skipped, waitingCount, onFinish, onBegin, onSkip, onDefer, onOpen, onClose }: any) {

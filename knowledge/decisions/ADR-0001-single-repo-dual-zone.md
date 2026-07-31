@@ -1,0 +1,20 @@
+---
+title: ADR-0001 单仓双区
+owner_role: cross-functional
+status: accepted
+applies_to: workspace-v0.1+
+last_verified_at: 2026-08-01
+related: README.md
+---
+
+# ADR-0001：采用单仓双区
+
+## 背景
+项目需要在切换人员或 Agent 后继续工作，同时保持业务知识、交付物和代码版本可追溯。
+## 选择
+在单一仓库中建立 `knowledge/` 和 `workspace/` 两个顶层区域。
+## 备选
+知识与工程分仓；按角色分仓。两者均增加跨仓同步和权限依赖。
+## 影响
+所有角色共享同一版本历史；发布检查必须同时验证知识和交付物。
+

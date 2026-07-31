@@ -1,0 +1,18 @@
+---
+title: ADR-0003 冻结 v0.1 原型
+owner_role: product
+status: accepted
+applies_to: v0.1
+last_verified_at: 2026-08-01
+related: workspace/product/v0.1
+---
+
+# ADR-0003：v0.1 作为不可覆盖基线
+
+## 背景
+现有原型已经过多轮浏览器评审并被确认为阶段定稿。
+## 选择
+保留原始 Git 标签 `v0.1`，将可运行副本迁入产品交付区，使用冻结清单保护；后续修改新建版本。
+## 影响
+修正文档或工程结构可以在冻结区外进行，任何原型内容变化必须创建新产品版本。
+

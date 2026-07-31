@@ -1,0 +1,20 @@
+---
+title: 文档生命周期
+owner_role: cross-functional
+status: finalized
+applies_to: workspace-v0.1+
+last_verified_at: 2026-08-01
+related: knowledge/governance/document-metadata.md
+---
+
+# 文档生命周期
+
+正式文档依次经历：`draft（草稿）→ reviewed（评审）→ finalized（定稿）→ deprecated（废弃）`。
+
+- 草稿允许负责人持续修改。
+- 评审状态必须明确待确认事项。
+- 定稿状态不得改变已确认语义；修改时新建版本或 ADR。
+- 废弃文件保留历史，并指向替代文档。
+
+README 描述目录当前状态，不属于版本交付文档，因此无需 YAML 元数据，但必须符合统一章节模板。
+

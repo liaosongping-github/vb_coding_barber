@@ -1,0 +1,17 @@
+# 工作空间治理
+
+## 目录用途
+定义文档生命周期、Agent 接手、发布门禁和版本追溯规则。
+## 内容索引
+`document-lifecycle.md`、`agent-handoff.md`、`release-process.md` 和 `document-metadata.md`。
+## 使用入口
+新增正式文档前读元数据规范；接手任务读交接规范；发布前读发布流程。
+## 上下游关系
+约束知识库及产品、研发、测试全部交付物。
+## 维护规则
+治理规则变更必须新增 ADR，并同步自动检查脚本。
+## 当前状态
+工作空间 v0.1 基线规则已定稿。
+## 相关链接
+[决策记录](../decisions/README.md) · [治理工具](../../scripts/knowledge/README.md)
+

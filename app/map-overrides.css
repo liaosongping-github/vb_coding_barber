@@ -1,0 +1,51 @@
+.pin {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 14px;
+  padding: 7px 9px;
+  text-align: left;
+}
+
+.pin > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.pin b,
+.pin small {
+  white-space: nowrap;
+}
+
+.pin b {
+  font-size: 9px;
+}
+
+.pin small {
+  margin-top: 2px;
+  font-size: 7px;
+}
+
+.map-avatar {
+  display: grid !important;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 9px;
+  background: #ad8650;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.map-avatar.blue {
+  background: #527f9c;
+}
+
+.pin.p1 {
+  left: 64px;
+}
+
+.pin.p2 {
+  right: 24px;
+}

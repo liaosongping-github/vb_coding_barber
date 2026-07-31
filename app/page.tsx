@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 type TicketStatus = "waiting" | "verify" | "serving" | "skipped" | "deferred" | "done" | "cancelled";
-type Ticket = { id: number; no: string; phone: string; status: TicketStatus; owner?: boolean };
+type Ticket = { id: number; no: string; phone: string; status: TicketStatus; owner?: boolean; barberId?: number };
 
 const barbers = [
   { id: 1, name: "陈师傅", type: "社区理发摊", distance: "320m", price: "剪发 ¥25", open: true, queue: 5, wait: 75, color: "amber", address: "梧桐路社区广场东侧", hours: "08:30–19:30", recent: true },
@@ -37,6 +37,7 @@ export default function Home() {
   const [modal, setModal] = useState<"join" | "close" | "address" | null>(null);
   const [people, setPeople] = useState(1);
   const [joined, setJoined] = useState(false);
+  const [joinBarberId, setJoinBarberId] = useState(1);
 
   const live = tickets.filter(t => !["done", "cancelled", "skipped"].includes(t.status));
   const waitingCount = live.filter(t => t.status !== "serving").length;
@@ -49,15 +50,29 @@ export default function Home() {
     window.setTimeout(() => setToast(""), 2400);
   };
 
+  const openJoin = (barberId = 1) => {
+    const barber = barbers.find(b => b.id === barberId);
+    const available = barberId === 1 ? isOpen : Boolean(barber?.open);
+    if (!available) {
+      notify("该理发师已打烊，暂不可取号");
+      return;
+    }
+    setJoinBarberId(barberId);
+    setPeople(1);
+    setModal("join");
+  };
+
   const joinQueue = () => {
-    const next = 24;
+    const target = barbers.find(b => b.id === joinBarberId) ?? barbers[0];
+    const next = joinBarberId === 1 ? 24 : target.queue + 1;
+    const prefix = joinBarberId === 1 ? "A" : "B";
     const created = Array.from({ length: people }, (_, i): Ticket => ({
-      id: next + i, no: `A0${next + i}`, phone: "4420", status: "waiting", owner: true,
+      id: joinBarberId * 1000 + next + i, no: `${prefix}${String(next + i).padStart(3, "0")}`, phone: "4420", status: "waiting", owner: true, barberId: joinBarberId,
     }));
     setTickets(prev => [...prev, ...created]);
     setJoined(true);
     setModal(null);
-    notify(`已成功取得 ${people} 个连续号码`);
+    notify(`已在${target.name}取得 ${people} 个连续号码`);
     setUserTab("排队");
   };
 
@@ -134,7 +149,7 @@ export default function Home() {
             <div className="phone-top"><span>9:41</span><span className="island" /><span>● ◒</span></div>
             {role === "user" && (
               <UserApp tab={userTab} setTab={setUserTab} detail={detail} setDetail={setDetail}
-                tickets={tickets} joined={joined} isOpen={isOpen} onJoin={() => setModal("join")}
+                tickets={tickets} joined={joined} isOpen={isOpen} onJoin={openJoin}
                 onCancel={cancelTicket} notify={notify} />
             )}
             {role === "barber" && (
@@ -149,7 +164,7 @@ export default function Home() {
         </div>
       </section>
 
-      {modal === "join" && <JoinModal people={people} setPeople={setPeople} onClose={() => setModal(null)} onJoin={joinQueue} />}
+      {modal === "join" && <JoinModal barber={barbers.find(b => b.id === joinBarberId) ?? barbers[0]} people={people} setPeople={setPeople} onClose={() => setModal(null)} onJoin={joinQueue} />}
       {modal === "close" && <ConfirmClose count={waitingCount} serving={!!current} onClose={() => setModal(null)} onConfirm={forceClose} />}
       {modal === "address" && <AddressModal onClose={() => setModal(null)} onOpen={() => { setIsOpen(true); setModal(null); notify("已在梧桐路社区广场开店"); }} />}
       {toast && <div className="toast"><span>✓</span>{toast}</div>}
@@ -163,7 +178,7 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, joined, isOpen, onJo
   return (
     <div className="app user-app">
       <div className="app-content">
-        {detail ? <BarberDetail onBack={() => setDetail(null)} onJoin={onJoin} isOpen={detail === 1 ? isOpen : Boolean(barbers.find(b => b.id === detail)?.open)} />
+        {detail ? <BarberDetail onBack={() => setDetail(null)} onJoin={() => onJoin(detail)} isOpen={detail === 1 ? isOpen : Boolean(barbers.find(b => b.id === detail)?.open)} />
           : tab === "首页" ? <UserHome onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
           : tab === "排队" ? <MyQueue tickets={myTickets} onCancel={onCancel} onBrowse={() => setTab("首页")} />
           : tab === "收藏" ? <Favorites onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
@@ -186,7 +201,7 @@ function UserHome({ onDetail, onJoin, isOpen }: any) {
         <div className="search">⌕ <span>搜索理发师或地址</span></div>
         <button onClick={() => setMap(!map)}>{map ? "列表" : "地图"}</button>
       </div>
-      {map ? <MiniMap onDetail={onDetail} /> : (
+      {map ? <MiniMap onDetail={onDetail} isOpen={isOpen} /> : (
         <>
           <div className="quick-strip">
             <div><small>附近营业</small><strong>{isOpen ? 8 : 7}<em> 位</em></strong></div>
@@ -196,7 +211,10 @@ function UserHome({ onDetail, onJoin, isOpen }: any) {
           </div>
           <div className="section-title"><h3>为你推荐</h3><span>按距离排序⌄</span></div>
           <div className="barber-list">
-            {barbers.map((b, i) => <BarberCard key={b.id} barber={b.id === 1 ? { ...b, open: isOpen } : b} index={i} onClick={() => onDetail(b.id)} onJoin={b.id === 1 ? onJoin : undefined} />)}
+            {barbers.map((b, i) => {
+              const displayBarber = b.id === 1 ? { ...b, open: isOpen } : b;
+              return <BarberCard key={b.id} barber={displayBarber} index={i} onClick={() => onDetail(b.id)} onJoin={displayBarber.open ? () => onJoin(b.id) : undefined} />;
+            })}
           </div>
         </>
       )}
@@ -204,16 +222,15 @@ function UserHome({ onDetail, onJoin, isOpen }: any) {
   );
 }
 
-function MiniMap({ onDetail }: any) {
+function MiniMap({ onDetail, isOpen }: any) {
   return (
     <div className="map-view">
       <div className="road r1" /><div className="road r2" /><div className="road r3" />
       <span className="map-label l1">梧桐路</span><span className="map-label l2">新安街</span><span className="map-label l3">社区广场</span>
-      <button className="pin p1" onClick={() => onDetail(1)}><b>¥25</b><small>5人</small></button>
-      <button className="pin p2" onClick={() => onDetail(2)}><b>¥35</b><small>2人</small></button>
-      <button className="pin p3 closed"><b>歇业</b></button>
+      {isOpen && <button className="pin p1" onClick={() => onDetail(1)}><span className="map-avatar amber">陈</span><span><b>陈师傅</b><small>5人排队</small></span></button>}
+      <button className="pin p2" onClick={() => onDetail(2)}><span className="map-avatar blue">阿</span><span><b>阿成理发</b><small>2人排队</small></span></button>
       <span className="me-pin">●</span>
-      <div className="map-tip">点击价格气泡查看理发师</div>
+      <div className="map-tip">点击头像气泡查看理发师</div>
     </div>
   );
 }
@@ -259,31 +276,38 @@ function BarberDetail({ onBack, onJoin, isOpen }: any) {
 }
 
 function MyQueue({ tickets, onCancel, onBrowse }: any) {
+  const groups = barbers.map(barber => ({
+    barber,
+    tickets: tickets.filter((ticket: Ticket) => (ticket.barberId ?? 1) === barber.id),
+  })).filter(group => group.tickets.length > 0);
   return (
     <>
       <div className="simple-header"><h2>我的排队</h2><button>⋯</button></div>
       <div className="segmented"><button className="active">进行中</button><button>已过号</button><button>历史记录</button></div>
-      {tickets.length ? <div className="my-queue-card">
-        <div className="queue-card-top"><div className="mini-avatar amber">陈</div><div><h3>陈师傅</h3><p>梧桐路社区广场东侧</p></div><span className="open">营业中</span></div>
-        <div className="ticket-stack">
-          {tickets.map((t: Ticket, index: number) => <div className={`ticket-row ${t.status}`} key={t.id}>
-            <div><small>{statusLabel[t.status]}</small><strong>{t.no}</strong></div>
-            <div><small>前方还有</small><b>{Math.max(0, 3 + index)} 人</b></div>
-            <div><small>预计等待</small><b>{Math.max(0, 45 + index * 15)} 分钟</b></div>
-            {["waiting", "verify"].includes(t.status) && <button onClick={() => onCancel(t.id)}>取消</button>}
-          </div>)}
-        </div>
-        <div className="queue-progress"><span style={{ width: "38%" }} /></div>
-        <div className="reminder-line">◉ 前方剩 3 人时将通过微信提醒你</div>
-        <div className="card-actions"><button>联系信息</button><button className="primary">地图导航</button></div>
-      </div> : <div className="empty-state"><div>≋</div><h3>还没有进行中的号码</h3><p>看看附近谁正在营业，线上取号后再出发。</p><button onClick={onBrowse}>去附近看看</button></div>}
+      {groups.length ? groups.map(({ barber, tickets: barberTickets }) => <div className="my-queue-card" key={barber.id}>
+          <div className="queue-card-top"><div className={`mini-avatar ${barber.color}`}>{barber.name[0]}</div><div><h3>{barber.name}</h3><p>{barber.address}</p></div><span className="open">营业中</span></div>
+          <div className="ticket-stack">
+            {barberTickets.map((t: Ticket, index: number) => <div className={`ticket-row ${t.status}`} key={t.id}>
+              <div><small>{statusLabel[t.status]}</small><strong>{t.no}</strong></div>
+              <div><small>前方还有</small><b>{Math.max(0, barber.queue + index)} 人</b></div>
+              <div><small>预计等待</small><b>{Math.max(0, barber.wait + index * 15)} 分钟</b></div>
+              {["waiting", "verify"].includes(t.status) && <button onClick={() => onCancel(t.id)}>取消</button>}
+            </div>)}
+          </div>
+          <div className="queue-progress"><span style={{ width: barber.id === 1 ? "38%" : "56%" }} /></div>
+          <div className="reminder-line">◉ 前方剩 3 人时将通过微信提醒你</div>
+          <div className="card-actions"><button>联系信息</button><button className="primary">地图导航</button></div>
+        </div>) : <div className="empty-state"><div>≋</div><h3>还没有进行中的号码</h3><p>看看附近谁正在营业，线上取号后再出发。</p><button onClick={onBrowse}>去附近看看</button></div>}
       <div className="tip-card"><b>同时排了多个理发师？</b><p>开始服务后，记得取消不再需要的其他号码，把位置留给邻居。</p></div>
     </>
   );
 }
 
 function Favorites({ onDetail, onJoin, isOpen }: any) {
-  return <><div className="simple-header"><h2>我的收藏</h2><button>⌕</button></div><div className="subcopy">常去的手艺人，都在这里</div><div className="barber-list favorites">{barbers.slice(0, 2).map((b, i) => <BarberCard key={b.id} barber={b.id === 1 ? { ...b, open: isOpen } : b} index={i} onClick={() => onDetail(b.id)} onJoin={b.id === 1 ? onJoin : undefined} />)}</div></>;
+  return <><div className="simple-header"><h2>我的收藏</h2><button>⌕</button></div><div className="subcopy">常去的手艺人，都在这里</div><div className="barber-list favorites">{barbers.slice(0, 2).map((b, i) => {
+    const displayBarber = b.id === 1 ? { ...b, open: isOpen } : b;
+    return <BarberCard key={b.id} barber={displayBarber} index={i} onClick={() => onDetail(b.id)} onJoin={displayBarber.open ? () => onJoin(b.id) : undefined} />;
+  })}</div></>;
 }
 
 function UserProfile({ notify }: any) {
@@ -375,8 +399,12 @@ function BottomNav({ labels, active, onChange, icons, badge }: any) {
   return <nav className="bottom-nav">{labels.map((l: string, i: number) => <button key={l} className={active === l ? "active" : ""} onClick={() => onChange(l)}><span>{icons[i]}{i === 1 && badge ? <i>{badge}</i> : null}</span><small>{l === "排队" ? "我的排队" : l}</small></button>)}</nav>;
 }
 
-function JoinModal({ people, setPeople, onClose, onJoin }: any) {
-  return <div className="modal-backdrop" onMouseDown={onClose}><div className="sheet" onMouseDown={e => e.stopPropagation()}><div className="grab" /><div className="sheet-head"><div><small>陈师傅 · 营业中</small><h2>选择取号人数</h2></div><button onClick={onClose}>×</button></div><p className="sheet-copy">同一次取号会生成连续号码，每个号码可独立取消。</p><div className="people-select">{[1,2,3].map(n => <button className={people === n ? "active" : ""} key={n} onClick={() => setPeople(n)}><b>{n}</b><span>{n === 1 ? "自己" : `${n} 人同行`}</span></button>)}</div><div className="join-summary"><div><span>预计号码</span><b>{people === 1 ? "A024" : `A024–A0${23 + people}`}</b></div><div><span>前方人数</span><b>5 人</b></div><div><span>预计等待</span><b>约 75 分钟</b></div></div><label className="consent"><input type="checkbox" defaultChecked /><span>接收前方剩 3 人及过号提醒</span></label><p className="fineprint">预计时间为动态估算；拒绝消息授权仍可取号，但可能错过叫号。</p><button className="sheet-primary" onClick={onJoin}>确认取 {people} 个号</button></div></div>;
+function JoinModal({ barber, people, setPeople, onClose, onJoin }: any) {
+  const prefix = barber.id === 1 ? "A" : "B";
+  const next = barber.id === 1 ? 24 : barber.queue + 1;
+  const firstNo = `${prefix}${String(next).padStart(3, "0")}`;
+  const lastNo = `${prefix}${String(next + people - 1).padStart(3, "0")}`;
+  return <div className="modal-backdrop" onMouseDown={onClose}><div className="sheet" onMouseDown={e => e.stopPropagation()}><div className="grab" /><div className="sheet-head"><div><small>{barber.name} · 营业中</small><h2>选择取号人数</h2></div><button onClick={onClose}>×</button></div><p className="sheet-copy">同一次取号会生成连续号码，每个号码可独立取消。</p><div className="people-select">{[1,2,3].map(n => <button className={people === n ? "active" : ""} key={n} onClick={() => setPeople(n)}><b>{n}</b><span>{n === 1 ? "自己" : `${n} 人同行`}</span></button>)}</div><div className="join-summary"><div><span>预计号码</span><b>{people === 1 ? firstNo : `${firstNo}–${lastNo}`}</b></div><div><span>前方人数</span><b>{barber.queue} 人</b></div><div><span>预计等待</span><b>约 {barber.wait} 分钟</b></div></div><label className="consent"><input type="checkbox" defaultChecked /><span>接收前方剩 3 人及过号提醒</span></label><p className="fineprint">预计时间为动态估算；拒绝消息授权仍可取号，但可能错过叫号。</p><button className="sheet-primary" onClick={onJoin}>确认取 {people} 个号</button></div></div>;
 }
 
 function ConfirmClose({ count, serving, onClose, onConfirm }: any) {

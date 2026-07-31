@@ -163,10 +163,10 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, joined, isOpen, onJo
   return (
     <div className="app user-app">
       <div className="app-content">
-        {detail ? <BarberDetail onBack={() => setDetail(null)} onJoin={onJoin} isOpen={isOpen} />
-          : tab === "首页" ? <UserHome onDetail={(id: number) => setDetail(id)} isOpen={isOpen} />
+        {detail ? <BarberDetail onBack={() => setDetail(null)} onJoin={onJoin} isOpen={detail === 1 ? isOpen : Boolean(barbers.find(b => b.id === detail)?.open)} />
+          : tab === "首页" ? <UserHome onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
           : tab === "排队" ? <MyQueue tickets={myTickets} onCancel={onCancel} onBrowse={() => setTab("首页")} />
-          : tab === "收藏" ? <Favorites onDetail={(id: number) => setDetail(id)} />
+          : tab === "收藏" ? <Favorites onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
           : <UserProfile notify={notify} />}
       </div>
       {!detail && <BottomNav labels={labels} active={tab} onChange={setTab} icons={["⌂", "≋", "♡", "○"]} badge={myTickets.length || undefined} />}
@@ -174,7 +174,7 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, joined, isOpen, onJo
   );
 }
 
-function UserHome({ onDetail, isOpen }: any) {
+function UserHome({ onDetail, onJoin, isOpen }: any) {
   const [map, setMap] = useState(false);
   return (
     <>
@@ -196,7 +196,7 @@ function UserHome({ onDetail, isOpen }: any) {
           </div>
           <div className="section-title"><h3>为你推荐</h3><span>按距离排序⌄</span></div>
           <div className="barber-list">
-            {barbers.map((b, i) => <BarberCard key={b.id} barber={b.id === 1 ? { ...b, open: isOpen } : b} index={i} onClick={() => onDetail(b.id)} />)}
+            {barbers.map((b, i) => <BarberCard key={b.id} barber={b.id === 1 ? { ...b, open: isOpen } : b} index={i} onClick={() => onDetail(b.id)} onJoin={b.id === 1 ? onJoin : undefined} />)}
           </div>
         </>
       )}
@@ -218,17 +218,17 @@ function MiniMap({ onDetail }: any) {
   );
 }
 
-function BarberCard({ barber: b, index, onClick }: any) {
+function BarberCard({ barber: b, index, onClick, onJoin }: any) {
   return (
-    <button className="barber-card" onClick={onClick}>
+    <article className={`barber-card ${!b.open ? "is-closed" : ""}`} onClick={onClick} onKeyDown={e => { if (e.key === "Enter") onClick(); }} role="button" tabIndex={0} aria-label={`查看${b.name}详情`}>
       <div className={`barber-photo ${b.color}`}><span>{b.name.slice(0, 1)}</span>{index === 0 && <i>最近服务</i>}</div>
       <div className="barber-info">
         <div className="name-row"><h4>{b.name}</h4><span className={b.open ? "open" : "closed"}>{b.open ? "营业中" : "已打烊"}</span></div>
         <p>{b.type} · {b.distance}</p><p className="price">{b.price}</p>
         <div className="queue-line">{b.open ? <><b>{b.queue}人</b>排队 <span>预计 {b.wait} 分钟</span></> : <span>明日 {b.hours.split("–")[0]} 营业</span>}</div>
       </div>
-      <span className="chevron">›</span>
-    </button>
+      {b.open && onJoin ? <button className="quick-join" onClick={e => { e.stopPropagation(); onJoin(); }} aria-label={`立即在${b.name}取号`}>立即取号</button> : <span className="chevron">›</span>}
+    </article>
   );
 }
 
@@ -282,8 +282,8 @@ function MyQueue({ tickets, onCancel, onBrowse }: any) {
   );
 }
 
-function Favorites({ onDetail }: any) {
-  return <><div className="simple-header"><h2>我的收藏</h2><button>⌕</button></div><div className="subcopy">常去的手艺人，都在这里</div><div className="barber-list favorites">{barbers.slice(0, 2).map((b, i) => <BarberCard key={b.id} barber={b} index={i} onClick={() => onDetail(b.id)} />)}</div></>;
+function Favorites({ onDetail, onJoin, isOpen }: any) {
+  return <><div className="simple-header"><h2>我的收藏</h2><button>⌕</button></div><div className="subcopy">常去的手艺人，都在这里</div><div className="barber-list favorites">{barbers.slice(0, 2).map((b, i) => <BarberCard key={b.id} barber={b.id === 1 ? { ...b, open: isOpen } : b} index={i} onClick={() => onDetail(b.id)} onJoin={b.id === 1 ? onJoin : undefined} />)}</div></>;
 }
 
 function UserProfile({ notify }: any) {

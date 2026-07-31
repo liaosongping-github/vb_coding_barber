@@ -128,7 +128,7 @@ export default function Home() {
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark">理</span>
-          <div><strong>邻剪</strong><small>社区理发排队平台 · 交互原型</small></div>
+          <div><strong>邻剪</strong><small>社区理发排队平台 · v0.1 交互原型</small></div>
         </div>
         <div className="role-switch" aria-label="切换演示端">
           <button className={role === "user" ? "active" : ""} onClick={() => setRole("user")}>用户端</button>
@@ -140,7 +140,7 @@ export default function Home() {
 
       <section className={`workspace ${role}`}>
         <aside className="context-panel">
-          <p className="eyebrow">PROTOTYPE 01</p>
+          <p className="eyebrow">PROTOTYPE v0.1</p>
           <h1>{role === "user" ? "附近好手艺，排到再出发。" : role === "barber" ? "少喊几遍号，专心剪好头。" : "把社区里的好手艺连接起来。"}</h1>
           <p>{role === "user" ? "在线查看附近理发师的实时队伍，临近时再到现场，告别漫长等候。" : role === "barber" ? "简单三步推进队伍：完成、核验、开始。熟悉的线下节奏，不增加负担。" : "轻量管理入驻、账号和服务数据，不干预理发师现场经营。"}</p>
           <div className="live-card">
@@ -376,7 +376,7 @@ function Records({ tickets }: any) {
 }
 
 function BarberProfile() {
-  return <><div className="profile-head barber-profile"><div className="profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>⌖</span>营业地址<i>3 个 ›</i></button><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 1.0</div></>;
+  return <><div className="profile-head barber-profile"><div className="profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>⌖</span>营业地址<i>3 个 ›</i></button><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 v0.1</div></>;
 }
 
 function AdminApp({ tab, setTab, tickets, isOpen, notify }: any) {

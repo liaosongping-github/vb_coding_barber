@@ -3,7 +3,7 @@
 ## 目录用途
 定义文档生命周期、Agent 接手、发布门禁和版本追溯规则。
 ## 内容索引
-`document-lifecycle.md`、`agent-handoff.md`、`release-process.md` 和 `document-metadata.md`。
+`文档生命周期.md`、`Agent交接.md`、`发布流程.md` 和 `文档元数据.md`。
 ## 使用入口
 新增正式文档前读元数据规范；接手任务读交接规范；发布前读发布流程。
 ## 上下游关系
@@ -14,4 +14,3 @@
 工作空间 v0.1 基线规则已定稿。
 ## 相关链接
 [决策记录](../decisions/README.md) · [治理工具](../../scripts/knowledge/README.md)
-

@@ -13,5 +13,4 @@
 ## 当前状态
 尚未启动。
 ## 相关链接
-[系统上下文](../../../knowledge/engineering/architecture/system-context.md) · [研发规则](../AGENTS.md)
-
+[系统上下文](../../../knowledge/engineering/architecture/系统上下文.md) · [研发规则](../AGENTS.md)

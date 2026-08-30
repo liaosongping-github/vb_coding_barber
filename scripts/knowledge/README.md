@@ -16,5 +16,4 @@
 ## 当前状态
 首期实现覆盖当前单仓工作流。
 ## 相关链接
-[发布流程](../../knowledge/governance/release-process.md)
-
+[发布流程](../../knowledge/governance/发布流程.md)

@@ -13,5 +13,4 @@
 ## 当前状态
 产品 v0.1 已定稿；研发和测试工作区完成初始化。
 ## 相关链接
-[知识库](../knowledge/README.md) · [发布流程](../knowledge/governance/release-process.md)
-
+[知识库](../knowledge/README.md) · [发布流程](../knowledge/governance/发布流程.md)

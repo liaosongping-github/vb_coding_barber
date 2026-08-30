@@ -13,5 +13,4 @@
 ## 当前状态
 v0.1 已部署。
 ## 相关链接
-[发布流程](../governance/release-process.md)
-
+[发布流程](../governance/发布流程.md)

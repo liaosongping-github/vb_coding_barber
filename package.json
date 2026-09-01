@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "workspace/product/v0.1/prototype"
+    "workspace/product/v0.2/prototype"
   ],
   "scripts": {
-    "prototype:dev": "pnpm --dir workspace/product/v0.1/prototype dev",
-    "prototype:build": "pnpm --dir workspace/product/v0.1/prototype build",
-    "prototype:test": "pnpm --dir workspace/product/v0.1/prototype test",
+    "prototype:dev": "pnpm --dir workspace/product/v0.2/prototype dev",
+    "prototype:build": "pnpm --dir workspace/product/v0.2/prototype build",
+    "prototype:test": "pnpm --dir workspace/product/v0.2/prototype test",
     "build": "pnpm prototype:build",
     "test": "pnpm knowledge:check && pnpm prototype:test",
     "knowledge:generate": "node scripts/knowledge/generate-code-graph.mjs",

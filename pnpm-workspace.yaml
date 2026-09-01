@@ -1,3 +1,4 @@
 packages:
-  - workspace/product/v0.1/prototype
-
+  - workspace/product/v0.2/prototype
+allowBuilds:
+  esbuild: true

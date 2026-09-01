@@ -1,0 +1,149 @@
+.pin {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 14px;
+  padding: 7px 9px;
+  text-align: left;
+}
+
+.pin > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.pin b,
+.pin small {
+  white-space: nowrap;
+}
+
+.pin b {
+  font-size: 9px;
+}
+
+.pin small {
+  margin-top: 2px;
+  font-size: 7px;
+}
+
+.map-avatar {
+  display: grid !important;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 9px;
+  background: #ad8650;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.map-avatar.blue {
+  background: #527f9c;
+}
+
+.pin.p1 {
+  left: 64px;
+}
+
+.pin.p2 {
+  right: 24px;
+}
+
+.barber-head .today-completed {
+  display: inline-block;
+  margin-top: 5px;
+  color: #176b48;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.profile-edit {
+  margin-left: auto;
+  border: 0;
+  border-radius: 9px;
+  background: #dff1e5;
+  color: #176b48;
+  padding: 7px 11px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.revenue-card {
+  margin: 12px 15px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #183a2b, #2a6246);
+  padding: 18px;
+  color: white;
+}
+
+.revenue-card small {
+  color: #b9c9bf;
+  font-size: 8px;
+}
+
+.revenue-card strong {
+  display: block;
+  margin: 8px 0 4px;
+  color: #dff074;
+  font-size: 32px;
+}
+
+.revenue-card p,
+.data-note p {
+  margin: 0;
+  color: #b9c9bf;
+  font-size: 8px;
+}
+
+.data-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 15px 14px;
+}
+
+.data-metrics > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #e2e6e0;
+  border-radius: 14px;
+  background: white;
+  padding: 13px 6px;
+}
+
+.data-metrics b {
+  margin-top: 6px;
+  font-size: 19px;
+}
+
+.data-metrics small {
+  color: #7f8982;
+  font-size: 8px;
+}
+
+.metric-icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 8px;
+  background: #e1f1e7;
+  color: #176b48;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.metric-icon.skipped { background: #f8eadb; color: #b66c20; }
+.metric-icon.cancelled { background: #f5e3e1; color: #bd4f48; }
+
+.data-note {
+  margin: 0 15px;
+  border-radius: 14px;
+  background: #eef1e8;
+  padding: 13px;
+}
+
+.data-note b { font-size: 10px; }
+.data-note p { margin-top: 5px; color: #758078; line-height: 1.5; }

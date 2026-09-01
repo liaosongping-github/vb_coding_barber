@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  workspace/product/v0.1/prototype:
+  workspace/product/v0.2/prototype:
     dependencies:
       drizzle-orm:
         specifier: 0.45.2

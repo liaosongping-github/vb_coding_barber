@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const ignored = new Set([".git", "node_modules", "dist", "outputs", ".pnpm-store", ".wrangler", ".vinext", ".next"]);
+const ignored = new Set([".git", ".superpowers", "node_modules", "dist", "outputs", ".pnpm-store", ".wrangler", ".vinext", ".next"]);
 const readmeHeadings = ["## 目录用途", "## 内容索引", "## 使用入口", "## 上下游关系", "## 维护规则", "## 当前状态", "## 相关链接"];
 const errors = [];
 
@@ -109,4 +109,3 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(`工作空间检查通过：${directories.length} 个目录，${markdownFiles.length} 份 Markdown。`);
-

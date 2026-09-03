@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "product_version": "v0.2",
+  "frozen_at": "2026-09-03T14:07:44.330Z",
+  "tree_sha256": "b54238be394bd0ac5d8edfe4bde06fa88e3a2d097a442f08881be9558323f9ee",
+  "files": [
+    {
+      "path": "acceptance-criteria.md",
+      "sha256": "cd2a83789efd12989c8103e8aebef39bd435fe40a658cb1d4c9dd99f31cdc304"
+    },
+    {
+      "path": "PRD.md",
+      "sha256": "5b4d00fed58cac7c964e41bd416959b05962295bc26172c16d5a85cea732eac7"
+    },
+    {
+      "path": "prototype/.openai/hosting.json",
+      "sha256": "b248c8dfc771fab67ffcb8406d14700702f6654691286583a123cb4b50ee77e9"
+    },
+    {
+      "path": "prototype/.openai/README.md",
+      "sha256": "60223c462de7a6c17983e48f750f9795adf089aff6820dd21401f799a41f5dd8"
+    },
+    {
+      "path": "prototype/app/chatgpt-auth.ts",
+      "sha256": "1407f614cc83d7049fdb08cd713d2516866ba58e24e820f7f4fd9d718b9d3007"
+    },
+    {
+      "path": "prototype/app/globals.css",
+      "sha256": "75e3e90d26e4f985d4cecc7e9b166f64275e668a9a1def09c5fbeade7a402ae4"
+    },
+    {
+      "path": "prototype/app/layout.tsx",
+      "sha256": "d191de00876c34a0e5900fad7e1655fd4e56682793f36d048cf030c77fdb66b3"
+    },
+    {
+      "path": "prototype/app/page.tsx",
+      "sha256": "9f448282ddd1d05bca1eaaf7d57727065d381980366a82c9c424ad15104076c5"
+    },
+    {
+      "path": "prototype/app/README.md",
+      "sha256": "4d185c791321d01d4b4d69788682b68fd0b57dd38c6e4e262c7063a8984d4786"
+    },
+    {
+      "path": "prototype/build/README.md",
+      "sha256": "40e2d55b864a717a864fb0695da00ec9c76cce2be3dd3c06101126db86658d33"
+    },
+    {
+      "path": "prototype/build/sites-vite-plugin.ts",
+      "sha256": "abd6bc3a592961e978ab72fceb8ee7647824d9a2321ee5b5777b2a05d69526cc"
+    },
+    {
+      "path": "prototype/db/index.ts",
+      "sha256": "effa59e46bcbb42dfb7b46911e809a1de0f2c37df1fd935e3dca89023eaf97e4"
+    },
+    {
+      "path": "prototype/db/README.md",
+      "sha256": "98a914a36531cf1a3e9dfb0e30952b4bc07a121e1ae1d6e048d45c7adb0ccaa7"
+    },
+    {
+      "path": "prototype/db/schema.ts",
+      "sha256": "48b4f7fafee1f2720b8977ba31bc0cf03dedb7ea8826c4bcbc8dfd74f2d8744f"
+    },
+    {
+      "path": "prototype/drizzle/meta/_journal.json",
+      "sha256": "5a5f57f8f48fcf1d065725c0f3dab19e590e96e7e1e5bf8ddff17339a0de8d9a"
+    },
+    {
+      "path": "prototype/drizzle/meta/README.md",
+      "sha256": "d0ace6ec74498213a96dca012386eefcb628937d9312dc3450cfe75e6e0127b2"
+    },
+    {
+      "path": "prototype/drizzle/README.md",
+      "sha256": "ed3a98ada119c878cb57fa900f3b809927936a11fde3d820ca1878c626abdd0e"
+    },
+    {
+      "path": "prototype/drizzle.config.ts",
+      "sha256": "73d0807c58e541dc3eaf175909fb5acc966faed61f74ff659d9d55027bf3e25b"
+    },
+    {
+      "path": "prototype/eslint.config.mjs",
+      "sha256": "275a07c13fc7c83a652efcfa9fb6a207c451a2f5088e6793415ce44281285720"
+    },
+    {
+      "path": "prototype/examples/d1/app/api/notes/README.md",
+      "sha256": "13fe2344f75a7cfc3cec737f87cadae94e4e8cda60d34dffb3739226c1c1e315"
+    },
+    {
+      "path": "prototype/examples/d1/app/api/notes/route.ts",
+      "sha256": "b0b134b9b0b4a9f5947abbd13fd4425b88b59c64f91db1aacb0cecbc16c38f45"
+    },
+    {
+      "path": "prototype/examples/d1/app/api/README.md",
+      "sha256": "8c9bb6392d67d1a52557df740981557684b540412d44bfc6bf3497db3d22aaaa"
+    },
+    {
+      "path": "prototype/examples/d1/app/README.md",
+      "sha256": "569cf35cba3215cbfebcab3e53c158aa5f7f840fd27e88672fd2c5eb67ba46fa"
+    },
+    {
+      "path": "prototype/examples/d1/db/README.md",
+      "sha256": "f604eb06c07296a97df3ff3d1b85ab44fff548e59df9dadc48708d5ed019de3a"
+    },
+    {
+      "path": "prototype/examples/d1/db/schema.ts",
+      "sha256": "1acd70317bcaf22cb140436fb47754c2144e7c2adfc59a3f427ecb1d816fa0f3"
+    },
+    {
+      "path": "prototype/examples/d1/README.md",
+      "sha256": "7ec498941a89bbd4c55767b346248189b531001ec06f7381252ab0219b94fc05"
+    },
+    {
+      "path": "prototype/examples/README.md",
+      "sha256": "5f2671c42c77c53e95a50315264814192d7017ac28123a2ca25bef544bc14688"
+    },
+    {
+      "path": "prototype/next.config.ts",
+      "sha256": "a972c4f0ffa6dd714e7909b02d1ac19d2f2fe3d01f191efd2c5054bd6f142ec1"
+    },
+    {
+      "path": "prototype/package.json",
+      "sha256": "7a60a68cdb1461dcdf870130c7c865459de86b4b6a92d8eaca8df06ea9a9c452"
+    },
+    {
+      "path": "prototype/postcss.config.mjs",
+      "sha256": "7b299d3d3b16699ddda397c0b2373b3af4f25f8fc9ccc9b3d9e64ef083bc1c21"
+    },
+    {
+      "path": "prototype/public/favicon.svg",
+      "sha256": "3e8863288c2d43dd33d2a71de317dcf9198f09932ea8d61e0def1b846a865435"
+    },
+    {
+      "path": "prototype/public/file.svg",
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "prototype/public/globe.svg",
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "prototype/public/og.png",
+      "sha256": "c13247bcb13e2684e3e95f30182843cead16c7cf7f52af9fe467fd3d21a8ff62"
+    },
+    {
+      "path": "prototype/public/README.md",
+      "sha256": "99834839b46135d27a0c3d8dc53623a11ac3ec3b2ab7687fe5f5aaa92277fc3f"
+    },
+    {
+      "path": "prototype/public/window.svg",
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    },
+    {
+      "path": "prototype/README.md",
+      "sha256": "5f3bd90a294568a0bc21f87b59915c797de8b84e834a680ef222b39172e6af15"
+    },
+    {
+      "path": "prototype/tests/prototype.test.mjs",
+      "sha256": "9e43f0c20a7243bc891acaa3a6764421701fba13530269ecc7b00c075df01edb"
+    },
+    {
+      "path": "prototype/tests/README.md",
+      "sha256": "c28d3ba9cf8900cdbba8cd0553ca67b786ac2bd110948a3f258918953b11d464"
+    },
+    {
+      "path": "prototype/tsconfig.json",
+      "sha256": "fbff01604d6cb54694be707f26e7a0eb21a6ef796b888c6a1dab1839fa7c6ccc"
+    },
+    {
+      "path": "prototype/vite.config.ts",
+      "sha256": "5d68239b2f24f42354e8a05cf69b83fd8f3ce34727f2edf2b55283e4f732c77a"
+    },
+    {
+      "path": "prototype/worker/index.ts",
+      "sha256": "6f8983ab616309202039ad672b1a46a835bede1bb77636dc751613c664f969e5"
+    },
+    {
+      "path": "prototype/worker/README.md",
+      "sha256": "9f18f90e7821f642b84d5c4dd99b23b902bd7e18c22f02a0aea238329320954e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ddddf680d79a0c24bf7511da415ed2413d93051a98605612fd2d7a02bca667ca"
+    }
+  ]
+}

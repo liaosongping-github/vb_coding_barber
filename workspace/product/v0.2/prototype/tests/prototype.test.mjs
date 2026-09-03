@@ -93,6 +93,17 @@ test("v0.2 理发师个人页不显示营业地址", async () => {
   assert.match(profile, /平均1人剪发时长/);
 });
 
+test("v0.2 理发师可编辑个人营业信息", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  const profile = page.slice(page.indexOf("function BarberProfile"), page.indexOf("function AdminApp"));
+  assert.match(profile, /编辑营业信息/);
+  assert.match(profile, /理发师姓名/);
+  assert.match(profile, /营业时间/);
+  assert.match(profile, /平均剪发时长/);
+  assert.match(profile, /保存修改/);
+  assert.doesNotMatch(profile, /消息与帮助/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

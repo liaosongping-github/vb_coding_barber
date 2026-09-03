@@ -337,7 +337,24 @@ function Records({ tickets }: any) {
 }
 
 function BarberProfile() {
-  return <><div className="barber-profile-head"><div className="barber-profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 v0.2</div></>;
+  const [name, setName] = useState("陈师傅");
+  const [openTime, setOpenTime] = useState("08:30");
+  const [closeTime, setCloseTime] = useState("19:30");
+  const [duration, setDuration] = useState("15");
+  const [editing, setEditing] = useState(false);
+  return <>
+    <div className="barber-profile-head"><div className="barber-profile-avatar">{name[0] || "理"}</div><div><h2>{name}</h2><p>138****2831</p></div><button className="profile-edit" onClick={() => setEditing(true)}>修改</button></div>
+    <div className="settings-list"><button onClick={() => setEditing(true)}><span>◷</span>常规营业时间<i>{openTime}–{closeTime} ›</i></button><button onClick={() => setEditing(true)}><span>≈</span>平均1人剪发时长<i>{duration} 分钟 ›</i></button></div>
+    <div className="version">邻剪理发师端 · 原型版本 v0.2</div>
+    {editing && <ProfileEditModal values={{ name, openTime, closeTime, duration }} onClose={() => setEditing(false)} onSave={(next: any) => { setName(next.name); setOpenTime(next.openTime); setCloseTime(next.closeTime); setDuration(next.duration); setEditing(false); }} />}
+  </>;
+}
+
+function ProfileEditModal({ values, onClose, onSave }: any) {
+  const [draft, setDraft] = useState(values);
+  const update = (key: string, value: string) => setDraft((current: any) => ({ ...current, [key]: value }));
+  const valid = draft.name.trim() && draft.openTime && draft.closeTime && Number(draft.duration) > 0;
+  return <div className="modal-backdrop"><div className="sheet profile-edit-sheet"><div className="grab" /><div className="sheet-head"><div><small>理发师资料</small><h2>编辑营业信息</h2></div><button onClick={onClose}>×</button></div><div className="profile-form"><label>理发师姓名<input value={draft.name} onChange={event => update("name", event.target.value)} placeholder="请输入姓名" /></label><fieldset><legend>营业时间</legend><div><label>开始<input type="time" value={draft.openTime} onChange={event => update("openTime", event.target.value)} /></label><span>至</span><label>结束<input type="time" value={draft.closeTime} onChange={event => update("closeTime", event.target.value)} /></label></div></fieldset><label>平均剪发时长<div className="duration-input"><input type="number" min="1" value={draft.duration} onChange={event => update("duration", event.target.value)} /><span>分钟 / 人</span></div></label></div><button className="sheet-primary" disabled={!valid} onClick={() => onSave({ ...draft, name: draft.name.trim() })}>保存修改</button></div></div>;
 }
 
 function AdminApp({ tab, setTab, tickets, isOpen, notify }: any) {

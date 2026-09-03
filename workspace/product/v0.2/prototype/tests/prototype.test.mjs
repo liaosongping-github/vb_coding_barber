@@ -85,6 +85,14 @@ test("v0.2 理发师数据页不显示经营概况说明", async () => {
   assert.doesNotMatch(records, /营业额按参考价/);
 });
 
+test("v0.2 理发师个人页不显示营业地址", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  const profile = page.slice(page.indexOf("function BarberProfile"), page.indexOf("function AdminApp"));
+  assert.doesNotMatch(profile, /营业地址/);
+  assert.match(profile, /常规营业时间/);
+  assert.match(profile, /平均1人剪发时长/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

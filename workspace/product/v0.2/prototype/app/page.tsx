@@ -337,7 +337,7 @@ function Records({ tickets }: any) {
 }
 
 function BarberProfile() {
-  return <><div className="barber-profile-head"><div className="barber-profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>⌖</span>营业地址<i>3 个 ›</i></button><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 v0.2</div></>;
+  return <><div className="barber-profile-head"><div className="barber-profile-avatar">陈</div><div><h2>陈师傅</h2><p>138****2831</p></div><button className="profile-edit">修改</button></div><div className="settings-list"><button><span>◷</span>常规营业时间<i>08:30–19:30 ›</i></button><button><span>≈</span>平均1人剪发时长<i>15 分钟 ›</i></button><button><span>◎</span>消息与帮助<i>›</i></button></div><div className="version">邻剪理发师端 · 原型版本 v0.2</div></>;
 }
 
 function AdminApp({ tab, setTab, tickets, isOpen, notify }: any) {

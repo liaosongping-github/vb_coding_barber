@@ -4,9 +4,9 @@
 保存正式平台的工程级代码、数据库、接口和技术设计。
 ## 内容索引
 `platform/` 是未来生产工程边界；局部规则见 `AGENTS.md`。
-`production-launch-plan.md` 是从生产技术选型到正式上线的总计划、进度入口与 Agent 交接依据。
+`生产系统上线总计划.md` 是从生产技术选型到正式上线的总计划、进度入口与 Agent 交接依据。
 ## 使用入口
-先阅读 `production-launch-plan.md` 确认当前执行点；生产研发启动前先完成技术选型 ADR，再初始化工程。
+先阅读 `生产系统上线总计划.md` 确认当前执行点；生产研发启动前先完成技术选型 ADR，再初始化工程。
 ## 上下游关系
 输入是定稿 PRD 和业务规则；输出交给测试区验证。
 ## 维护规则
@@ -14,4 +14,4 @@
 ## 当前状态
 生产上线总计划已建立；生产技术栈尚未决策，下一步是技术选型。
 ## 相关链接
-[生产上线总计划](production-launch-plan.md) · [工程知识](../../knowledge/engineering/README.md) · [产品交付](../product/README.md)
+[生产上线总计划](生产系统上线总计划.md) · [工程知识](../../knowledge/engineering/README.md) · [产品交付](../product/README.md)

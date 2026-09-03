@@ -104,6 +104,14 @@ test("v0.2 理发师可编辑个人营业信息", async () => {
   assert.doesNotMatch(profile, /消息与帮助/);
 });
 
+test("v0.2 确认顺延后排在下一位之后", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  assert.match(page, /find\(t => t\.status === "verify"\) \|\| primaryBarberTickets\.find\(t => t\.status === "deferred"\)/);
+  const defer = page.slice(page.indexOf("const defer"), page.indexOf("const cancelTicket"));
+  assert.match(defer, /findIndex\(ticket => ticket\.status === "verify"/);
+  assert.match(defer, /splice\(nextIndex \+ 1, 0, deferredTicket\)/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

@@ -46,7 +46,7 @@ export default function Home() {
   const live = primaryBarberTickets.filter(t => !["done", "cancelled", "skipped"].includes(t.status));
   const waitingCount = live.filter(t => t.status !== "serving").length;
   const current = primaryBarberTickets.find(t => t.status === "serving");
-  const candidate = primaryBarberTickets.find(t => t.status === "deferred") || primaryBarberTickets.find(t => t.status === "verify") || primaryBarberTickets.find(t => t.status === "waiting");
+  const candidate = primaryBarberTickets.find(t => t.status === "verify") || primaryBarberTickets.find(t => t.status === "deferred") || primaryBarberTickets.find(t => t.status === "waiting");
   const skipped = primaryBarberTickets.filter(t => t.status === "skipped");
   const joinTarget = barbers.find(b => b.id === joinBarberId) ?? barbers[0];
   const joinNext = useMemo(() => {
@@ -107,8 +107,18 @@ export default function Home() {
   };
 
   const defer = (id: number) => {
-    setTickets(prev => prev.map(t => t.id === id ? { ...t, status: "deferred" } : t));
-    notify("已加入顺延队列，将优先叫号");
+    setTickets(prev => {
+      const source = prev.find(ticket => ticket.id === id);
+      if (!source) return prev;
+      const queue = prev.filter(ticket => ticket.id !== id);
+      const barberId = source.barberId ?? 1;
+      let nextIndex = queue.findIndex(ticket => ticket.status === "verify" && (ticket.barberId ?? 1) === barberId);
+      if (nextIndex < 0) nextIndex = queue.findIndex(ticket => ticket.status === "serving" && (ticket.barberId ?? 1) === barberId);
+      const deferredTicket: Ticket = { ...source, status: "deferred" };
+      queue.splice(nextIndex + 1, 0, deferredTicket);
+      return queue;
+    });
+    notify("已顺延至下一位之后");
   };
 
   const cancelTicket = (id: number) => {

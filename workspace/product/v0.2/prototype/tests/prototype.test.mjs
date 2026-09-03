@@ -70,6 +70,14 @@ test("v0.2 确认取号后进入我的排队进行中", async () => {
   assert.match(page, /useState<"进行中" \| "已过号" \| "已完成">\("进行中"\)/);
 });
 
+test("v0.2 理发师工作台隐藏地址并标记下一位", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  const dashboard = page.slice(page.indexOf("function BarberDashboard"), page.indexOf("function Records"));
+  assert.match(page, /verify: "下一位"/);
+  assert.doesNotMatch(dashboard, /<div className="location-banner">/);
+  assert.doesNotMatch(dashboard, /<small>本次营业地址<\/small>/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

@@ -25,7 +25,7 @@ const initialTickets: Ticket[] = [
 ];
 
 const statusLabel: Record<TicketStatus, string> = {
-  waiting: "等待中", verify: "待核验", serving: "服务中", skipped: "已过号",
+  waiting: "等待中", verify: "下一位", serving: "服务中", skipped: "已过号",
   deferred: "已顺延", done: "已完成", cancelled: "已取消",
 };
 
@@ -308,7 +308,7 @@ function BarberDashboard({ isOpen, tickets, current, candidate, skipped, waiting
       <div><p>7月31日 · 星期五</p><h2>陈师傅，下午好</h2><small className="today-completed">今日完成 {tickets.filter((t: Ticket) => t.status === "done").length + 7} 人</small></div>
       <button className={`shop-switch ${isOpen ? "on" : ""}`} onClick={isOpen ? onClose : onOpen}><i />{isOpen ? "营业中" : "开始营业"}</button>
     </div>
-    {!isOpen ? <><div className="location-banner"><span>⌖</span><div><small>上次营业地址</small><b>梧桐路社区广场东侧</b></div><button onClick={onOpen}>修改</button></div><div className="closed-dashboard"><div>休</div><h3>今天尚未营业</h3><p>选择本次服务地址，开启今天的排队。</p><button onClick={onOpen}>选择地址并开店</button></div></> : <>
+    {!isOpen ? <div className="closed-dashboard"><div>休</div><h3>今天尚未营业</h3><p>选择本次服务地址，开启今天的排队。</p><button onClick={onOpen}>选择地址并开店</button></div> : <>
       {current ? <div className="service-card current">
         <div className="card-tag"><span className="pulse" />正在服务</div>
         <div className="big-ticket"><div><small>当前号码</small><strong>{current.no}</strong></div><span /><div><small>手机尾号</small><strong>{current.phone}</strong></div></div>
@@ -320,7 +320,6 @@ function BarberDashboard({ isOpen, tickets, current, candidate, skipped, waiting
         <div className="big-ticket"><div><small>号码</small><strong>{candidate.no}</strong></div><span /><div><small>手机尾号</small><strong>{candidate.phone}</strong></div></div>
         <div className="dual-actions"><button onClick={onSkip}>未到场 / 跳号</button><button onClick={onBegin}>开始服务</button></div>
       </div>}
-      <div className="location-banner"><span>⌖</span><div><small>本次营业地址</small><b>梧桐路社区广场东侧</b></div><button onClick={onOpen}>修改</button></div>
       <div className="queue-overview">
         <div className="section-title"><h3>排队总览</h3><span>全部 {tickets.filter((t: Ticket) => !["done", "cancelled"].includes(t.status)).length} 人 ›</span></div>
         <div className="queue-chips">{tickets.filter((t: Ticket) => !["done", "cancelled"].includes(t.status)).slice(0, 7).map((t: Ticket) => <div className={t.status} key={t.id}><b>{t.no}</b><small>{statusLabel[t.status]}</small></div>)}</div>

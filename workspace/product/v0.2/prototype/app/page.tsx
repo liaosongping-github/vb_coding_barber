@@ -189,7 +189,7 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, isOpen, onJoin, onCa
       <div className="app-content">
         {detail ? <BarberDetail onBack={() => setDetail(null)} onJoin={() => onJoin(detail)} isOpen={detail === 1 ? isOpen : Boolean(barbers.find(b => b.id === detail)?.open)} />
           : tab === "首页" ? <UserHome onDetail={(id: number) => setDetail(id)} onJoin={onJoin} isOpen={isOpen} />
-          : <MyQueue tickets={myTickets} onCancel={onCancel} onBrowse={() => setTab("首页")} />}
+          : <MyQueue tickets={myTickets} onCancel={onCancel} />}
       </div>
       {!detail && <BottomNav labels={labels} active={tab} onChange={setTab} icons={["⌂", "≋"]} badge={activeMyTickets.length || undefined} />}
     </div>
@@ -261,7 +261,7 @@ function BarberDetail({ onBack, onJoin, isOpen }: any) {
   );
 }
 
-function MyQueue({ tickets, onCancel, onBrowse }: any) {
+function MyQueue({ tickets, onCancel }: any) {
   const [queueTab, setQueueTab] = useState<"进行中" | "已过号" | "已完成">("进行中");
   const visibleTickets = tickets.filter((ticket: Ticket) => queueTab === "进行中"
     ? !["done", "skipped", "cancelled"].includes(ticket.status)
@@ -287,8 +287,7 @@ function MyQueue({ tickets, onCancel, onBrowse }: any) {
           {queueTab === "进行中" && <><div className="queue-progress"><span style={{ width: barber.id === 1 ? "38%" : "56%" }} /></div><div className="reminder-line">◉ 前方剩 3 人时将通过微信提醒你</div><div className="card-actions"><button>联系信息</button></div></>}
           {queueTab === "已过号" && <div className="card-actions"><button>查看详情</button><button className="primary">联系理发师</button></div>}
           {queueTab === "已完成" && <div className="card-actions"><button>服务详情</button><button className="primary">再次取号</button></div>}
-        </div>) : <div className="empty-state"><div>≋</div><h3>{queueTab === "进行中" ? "还没有进行中的号码" : queueTab === "已过号" ? "没有已过号的号码" : "还没有完成记录"}</h3><p>{queueTab === "进行中" ? "看看谁正在营业，线上取号后再出发。" : "相关记录会在这里统一展示。"}</p>{queueTab === "进行中" && <button onClick={onBrowse}>查看营业状态</button>}</div>}
-      {queueTab === "进行中" && <div className="tip-card"><b>同时排了多个理发师？</b><p>开始服务后，记得取消不再需要的其他号码，把位置留给邻居。</p></div>}
+        </div>) : <div className="empty-state"><h3>{queueTab === "进行中" ? "无排队" : queueTab === "已过号" ? "没有已过号的号码" : "还没有完成记录"}</h3>{queueTab !== "进行中" && <p>相关记录会在这里统一展示。</p>}</div>}
     </>
   );
 }

@@ -45,6 +45,13 @@ test("v0.2 理发师使用文字服务地址开店", async () => {
   assert.doesNotMatch(page, /320m|1\.1km/);
 });
 
+test("v0.2 排队空状态保持简洁", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  assert.match(page, /queueTab === "进行中" \? "无排队"/);
+  assert.doesNotMatch(page, /同时排了多个理发师/);
+  assert.doesNotMatch(page, /还没有进行中的号码|查看营业状态/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

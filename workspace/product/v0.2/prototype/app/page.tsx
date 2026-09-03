@@ -333,7 +333,7 @@ function Records({ tickets }: any) {
   const completed = tickets.filter((t: Ticket) => t.status === "done").length + 7;
   const skippedCount = tickets.filter((t: Ticket) => t.status === "skipped").length;
   const cancelled = tickets.filter((t: Ticket) => t.status === "cancelled").length + 2;
-  return <><div className="simple-header"><h2>数据看板</h2><button>日历⌄</button></div><div className="date-strip"><button>‹</button><div><b>今天</b><span>7月31日</span></div><button>›</button></div><div className="revenue-card"><small>今日营业额</small><strong>¥ {completed * 25}</strong><p>共完成 {completed} 位客户</p></div><div className="data-metrics"><div><span className="metric-icon done">✓</span><b>{completed}</b><small>完成服务</small></div><div><span className="metric-icon skipped">!</span><b>{skippedCount}</b><small>过号</small></div><div><span className="metric-icon cancelled">×</span><b>{cancelled}</b><small>取消</small></div></div><div className="data-note"><b>今日经营概况</b><p>营业额按参考价 ¥25 × 完成服务数估算，实际金额以现场收款为准。</p></div></>;
+  return <><div className="simple-header"><h2>数据看板</h2><button>日历⌄</button></div><div className="date-strip"><button>‹</button><div><b>今天</b><span>7月31日</span></div><button>›</button></div><div className="revenue-card"><small>今日营业额</small><strong>¥ {completed * 25}</strong><p>共完成 {completed} 位客户</p></div><div className="data-metrics"><div><span className="metric-icon done">✓</span><b>{completed}</b><small>完成服务</small></div><div><span className="metric-icon skipped">!</span><b>{skippedCount}</b><small>过号</small></div><div><span className="metric-icon cancelled">×</span><b>{cancelled}</b><small>取消</small></div></div></>;
 }
 
 function BarberProfile() {

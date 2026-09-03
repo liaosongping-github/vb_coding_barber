@@ -78,6 +78,13 @@ test("v0.2 理发师工作台隐藏地址并标记下一位", async () => {
   assert.doesNotMatch(dashboard, /<small>本次营业地址<\/small>/);
 });
 
+test("v0.2 理发师数据页不显示经营概况说明", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  const records = page.slice(page.indexOf("function Records"), page.indexOf("function BarberProfile"));
+  assert.doesNotMatch(records, /今日经营概况/);
+  assert.doesNotMatch(records, /营业额按参考价/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

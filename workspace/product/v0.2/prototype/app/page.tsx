@@ -174,7 +174,7 @@ export default function Home() {
 
       {modal === "join" && <JoinModal barber={joinTarget} next={joinNext} people={people} setPeople={setPeople} onClose={() => setModal(null)} onJoin={joinQueue} />}
       {modal === "close" && <ConfirmClose count={waitingCount} serving={!!current} onClose={() => setModal(null)} onConfirm={forceClose} />}
-      {modal === "address" && <AddressModal onClose={() => setModal(null)} onOpen={() => { setIsOpen(true); setModal(null); notify("已在梧桐路社区广场开店"); }} />}
+      {modal === "address" && <AddressModal onClose={() => setModal(null)} onOpen={(address: string) => { setIsOpen(true); setModal(null); notify(`已在${address}开店`); }} />}
       {toast && <div className="toast"><span>✓</span>{toast}</div>}
     </main>
   );
@@ -392,5 +392,9 @@ function ConfirmClose({ count, serving, onClose, onConfirm }: any) {
 }
 
 function AddressModal({ onClose, onOpen }: any) {
-  return <div className="modal-backdrop"><div className="sheet address-sheet"><div className="grab" /><div className="sheet-head"><div><small>开始今天的营业</small><h2>选择服务地址</h2></div><button onClick={onClose}>×</button></div><label className="address-option selected"><input type="radio" defaultChecked name="address" /><span>⌖</span><div><b>梧桐路社区广场东侧</b><small>上次使用 · 320m</small></div><em>默认</em></label><label className="address-option"><input type="radio" name="address" /><span>⌖</span><div><b>春和苑南门便民点</b><small>1.1km</small></div></label><button className="new-address">＋ 新增地图定位地址</button><button className="sheet-primary" onClick={onOpen}>确认地址并开店</button></div></div>;
+  const [selected, setSelected] = useState("梧桐路社区广场东侧");
+  const [adding, setAdding] = useState(false);
+  const [newAddress, setNewAddress] = useState("");
+  const address = adding ? newAddress.trim() : selected;
+  return <div className="modal-backdrop"><div className="sheet address-sheet"><div className="grab" /><div className="sheet-head"><div><small>开始今天的营业</small><h2>选择文字服务地址</h2></div><button onClick={onClose}>×</button></div><p className="sheet-copy">老顾客已熟悉摊位位置，选择常用地址或直接填写本次营业地点。</p><label className={`address-option ${!adding && selected === "梧桐路社区广场东侧" ? "selected" : ""}`}><input type="radio" checked={!adding && selected === "梧桐路社区广场东侧"} name="address" onChange={() => { setAdding(false); setSelected("梧桐路社区广场东侧"); }} /><span>址</span><div><b>梧桐路社区广场东侧</b><small>上次使用</small></div><em>默认</em></label><label className={`address-option ${!adding && selected === "春和苑南门便民点" ? "selected" : ""}`}><input type="radio" checked={!adding && selected === "春和苑南门便民点"} name="address" onChange={() => { setAdding(false); setSelected("春和苑南门便民点"); }} /><span>址</span><div><b>春和苑南门便民点</b><small>常用地址</small></div></label>{adding ? <div className="new-address-form"><label htmlFor="new-service-address">本次营业地址</label><input id="new-service-address" autoFocus value={newAddress} onChange={event => setNewAddress(event.target.value)} placeholder="请输入摊位或门店地址" /></div> : <button className="new-address" onClick={() => setAdding(true)}>＋ 新增文字地址</button>}<button className="sheet-primary" disabled={!address} onClick={() => onOpen(address)}>确认地址并开店</button></div></div>;
 }

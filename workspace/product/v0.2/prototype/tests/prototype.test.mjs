@@ -36,6 +36,15 @@ test("v0.2 用户端不包含地图收藏和距离能力", async () => {
   assert.match(page, /文字服务地址/);
 });
 
+test("v0.2 理发师使用文字服务地址开店", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  assert.match(page, /选择文字服务地址/);
+  assert.match(page, /新增文字地址/);
+  assert.match(page, /请输入摊位或门店地址/);
+  assert.doesNotMatch(page, /地图定位/);
+  assert.doesNotMatch(page, /320m|1\.1km/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

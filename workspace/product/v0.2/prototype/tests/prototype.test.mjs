@@ -52,6 +52,15 @@ test("v0.2 排队空状态保持简洁", async () => {
   assert.doesNotMatch(page, /还没有进行中的号码|查看营业状态/);
 });
 
+test("v0.2 用户首页显示登录昵称和附近理发师", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  assert.match(page, /const loggedInNickname = "小林"/);
+  assert.match(page, /<div className="mini-header"><h2>{loggedInNickname}<\/h2><\/div>/);
+  assert.match(page, /<div className="section-title"><h3>附近的理发师<\/h3><\/div>/);
+  assert.doesNotMatch(page, /<p className="eyebrow">今日营业与排队<\/p>/);
+  assert.doesNotMatch(page, /<h3>常去的理发师<\/h3><span>实时更新<\/span>/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

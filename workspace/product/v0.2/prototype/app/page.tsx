@@ -10,6 +10,8 @@ const barbers = [
   { id: 2, name: "阿成理发", type: "沿街小店", price: "剪发 ¥35", open: true, queue: 2, wait: 36, color: "blue", address: "新安街 42 号", hours: "09:00–21:00", recent: false },
 ];
 
+const loggedInNickname = "小林";
+
 const initialTickets: Ticket[] = [
   { id: 18, no: "A018", phone: "1298", status: "serving" },
   { id: 19, no: "A019", phone: "7631", status: "verify" },
@@ -199,9 +201,7 @@ function UserApp({ tab, setTab, detail, setDetail, tickets, isOpen, onJoin, onCa
 function UserHome({ onDetail, onJoin, isOpen }: any) {
   return (
     <>
-      <div className="mini-header">
-        <div><p className="eyebrow">今日营业与排队</p><h2>看看队伍，排到再出发</h2></div>
-      </div>
+      <div className="mini-header"><h2>{loggedInNickname}</h2></div>
       <div className="search-row">
         <div className="search">⌕ <span>搜索理发师</span></div>
       </div>
@@ -210,7 +210,7 @@ function UserHome({ onDetail, onJoin, isOpen }: any) {
         <span />
         <div><small>最快轮到</small><strong>18<em> 分钟</em></strong></div>
       </div>
-      <div className="section-title"><h3>常去的理发师</h3><span>实时更新</span></div>
+      <div className="section-title"><h3>附近的理发师</h3></div>
       <div className="barber-list">
         {barbers.map((b, i) => {
           const displayBarber = b.id === 1 ? { ...b, open: isOpen } : b;

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
-import "./map-overrides.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -11,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: "邻剪｜社区理发排队平台",
-    description: "附近找理发师、当天线上取号、动态查看进度，排到再出发。",
+    description: "熟客查看理发师营业状态、当天线上取号、动态查看进度，排到再出发。",
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       title: "邻剪｜排到再出发",

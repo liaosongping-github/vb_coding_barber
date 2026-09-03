@@ -3,7 +3,7 @@
 ## 目录用途
 实现三端原型界面、演示状态和交互。
 ## 内容索引
-`page.tsx` 是主交互；`globals.css` 与 `map-overrides.css` 是视觉样式；`layout.tsx` 是页面元数据；`chatgpt-auth.ts` 是预置身份帮助器。
+`page.tsx` 是主交互；`globals.css` 是共享视觉样式；`layout.tsx` 是页面元数据；`chatgpt-auth.ts` 是预置身份帮助器。
 ## 使用入口
 从 `page.tsx` 的根组件开始阅读。
 ## 上下游关系

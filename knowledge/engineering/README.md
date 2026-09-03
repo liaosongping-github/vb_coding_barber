@@ -12,6 +12,6 @@
 ## 维护规则
 架构变更更新人工文档；代码变化运行 `pnpm knowledge:generate`，不得手改生成文件。
 ## 当前状态
-仅记录 v0.1 原型；生产工程尚未启动。
+自动图谱记录 v0.2 定稿原型；生产工程尚未启动。
 ## 相关链接
 [研发工作区](../../workspace/engineering/README.md) · [决策记录](../decisions/README.md)

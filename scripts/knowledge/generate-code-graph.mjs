@@ -6,7 +6,9 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDir, "../..");
-const sourceRoot = path.join(root, "workspace/product/v0.1/prototype");
+const productVersion = "v0.2";
+const sourceRelative = `workspace/product/${productVersion}/prototype`;
+const sourceRoot = path.join(root, sourceRelative);
 const outputRoot = path.join(root, "knowledge/engineering/generated");
 const checkOnly = process.argv.includes("--check");
 const codeExtensions = new Set([".ts", ".tsx", ".js", ".mjs", ".css", ".json"]);
@@ -90,11 +92,11 @@ routes.sort((a, b) => `${a.route}:${a.file}`.localeCompare(`${b.route}:${b.file}
 types.sort((a, b) => `${a.name}:${a.file}`.localeCompare(`${b.name}:${b.file}`));
 tests.sort();
 
-const sourceCommit = git(["log", "-1", "--format=%H", "--", "workspace/product/v0.1/prototype"] , git(["rev-parse", "HEAD"]));
+const sourceCommit = git(["log", "-1", "--format=%H", "--", sourceRelative] , git(["rev-parse", "HEAD"]));
 const sourceCommitDate = sourceCommit === "unknown" ? "unknown" : git(["show", "-s", "--format=%cI", sourceCommit]);
 const payload = {
   schema_version: 1,
-  product_version: "v0.1",
+  product_version: productVersion,
   generated_from: {
     source_commit: sourceCommit,
     source_commit_date: sourceCommitDate,
@@ -117,8 +119,8 @@ const graphChecksum = sha(JSON.stringify(payload));
 const graph = { ...payload, graph_sha256: graphChecksum };
 const json = `${JSON.stringify(graph, null, 2)}\n`;
 
-const markdown = `# v0.1 自动代码图谱\n\n` +
-  `> 来源提交：\`${sourceCommit}\`  \n> 来源时间：${sourceCommitDate}  \n> 代码树校验：\`${payload.generated_from.source_tree_sha256}\`  \n> 图谱校验：\`${graphChecksum}\`\n\n` +
+const markdown = `# ${productVersion} 自动代码图谱\n\n` +
+  `> 来源提交：\`${sourceCommit}\`\n> 来源时间：${sourceCommitDate}\n> 代码树校验：\`${payload.generated_from.source_tree_sha256}\`\n> 图谱校验：\`${graphChecksum}\`\n\n` +
   `## 摘要\n\n| 模块 | 路由 | 类型 | 依赖 | 测试 |\n|---:|---:|---:|---:|---:|\n| ${modules.length} | ${routes.length} | ${types.length} | ${imports.length} | ${tests.length} |\n\n` +
   `## 路由\n\n${routes.length ? routes.map((item) => `- \`${item.route}\`（${item.kind}）：\`${item.file}\``).join("\n") : "- 无"}\n\n` +
   `## 代码模块\n\n${modules.map((item) => `- \`${item.path}\` · ${item.kind} · ${item.lines} 行`).join("\n")}\n\n` +

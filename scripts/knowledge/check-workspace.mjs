@@ -72,15 +72,20 @@ for (const file of markdownFiles) {
   }
 }
 
-const frozenFile = path.join(root, "workspace/product/v0.1/FROZEN.json");
-if (await fs.stat(frozenFile).then(() => true).catch(() => false)) {
+const productRoot = path.join(root, "workspace/product");
+const versionDirectories = (await fs.readdir(productRoot, { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory() && /^v\d+\.\d+$/.test(entry.name));
+for (const versionDirectory of versionDirectories) {
+  const version = versionDirectory.name;
+  const frozenFile = path.join(productRoot, version, "FROZEN.json");
+  if (!await fs.stat(frozenFile).then(() => true).catch(() => false)) continue;
   const manifest = JSON.parse(await fs.readFile(frozenFile, "utf8"));
   const versionRoot = path.dirname(frozenFile);
   const actual = [];
   for (const item of manifest.files) {
     const file = path.join(versionRoot, item.path);
     const content = await fs.readFile(file).catch(() => null);
-    if (content === null) errors.push(`冻结文件缺失：${item.path}`);
+    if (content === null) errors.push(`${version} 冻结文件缺失：${item.path}`);
     else actual.push({ path: item.path, sha256: createHash("sha256").update(content).digest("hex") });
   }
   const expectedFiles = new Set(manifest.files.map((item) => item.path));
@@ -95,10 +100,10 @@ if (await fs.stat(frozenFile).then(() => true).catch(() => false)) {
     }
     return result;
   }
-  for (const item of await currentFiles(versionRoot)) if (!expectedFiles.has(item)) errors.push(`冻结版本出现新增文件：${item}`);
+  for (const item of await currentFiles(versionRoot)) if (!expectedFiles.has(item)) errors.push(`${version} 冻结版本出现新增文件：${item}`);
   const tree = actual.map((item) => `${item.path}\0${item.sha256}`).join("\0");
   const hash = createHash("sha256").update(tree).digest("hex");
-  if (hash !== manifest.tree_sha256) errors.push("v0.1 冻结清单校验失败，禁止直接修改冻结版本");
+  if (hash !== manifest.tree_sha256) errors.push(`${version} 冻结清单校验失败，禁止直接修改冻结版本`);
 }
 
 const graphCheck = spawnSync(process.execPath, [path.join(root, "scripts/knowledge/generate-code-graph.mjs"), "--check"], { cwd: root, encoding: "utf8" });

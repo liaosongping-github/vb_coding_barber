@@ -1,141 +1,135 @@
 {
   "schema_version": 1,
-  "product_version": "v0.1",
+  "product_version": "v0.2",
   "generated_from": {
-    "source_commit": "9383ae17c2b062bfcea871f932dc49abf4dc43f8",
-    "source_commit_date": "2026-08-01T00:51:03+08:00",
-    "source_tree_sha256": "914f4ca7612202a6d32a66f355096ec78fb17128cd7d2d854e1288c745503dbf"
+    "source_commit": "fe7585f6969501938ec1c4887975522a64a54168",
+    "source_commit_date": "2026-09-03T21:59:43+08:00",
+    "source_tree_sha256": "defdb8fb9553fe9c4c0dcce03f474121e30f1a0f8ab22e661b82339e4e6dad7e"
   },
   "summary": {
-    "modules": 21,
+    "modules": 20,
     "routes": 2,
     "types": 5,
-    "imports": 33,
+    "imports": 32,
     "tests": 1
   },
   "modules": [
     {
-      "path": "workspace/product/v0.1/prototype/.openai/hosting.json",
+      "path": "workspace/product/v0.2/prototype/.openai/hosting.json",
       "kind": "configuration",
       "lines": 7,
       "sha256": "b248c8dfc771fab67ffcb8406d14700702f6654691286583a123cb4b50ee77e9"
     },
     {
-      "path": "workspace/product/v0.1/prototype/app/chatgpt-auth.ts",
+      "path": "workspace/product/v0.2/prototype/app/chatgpt-auth.ts",
       "kind": "application",
       "lines": 87,
       "sha256": "1407f614cc83d7049fdb08cd713d2516866ba58e24e820f7f4fd9d718b9d3007"
     },
     {
-      "path": "workspace/product/v0.1/prototype/app/globals.css",
+      "path": "workspace/product/v0.2/prototype/app/globals.css",
       "kind": "application",
-      "lines": 16,
-      "sha256": "48940c7d54de3980093b0ac09734464a5e1af79a6d25743e227b13991259c08b"
+      "lines": 18,
+      "sha256": "75e3e90d26e4f985d4cecc7e9b166f64275e668a9a1def09c5fbeade7a402ae4"
     },
     {
-      "path": "workspace/product/v0.1/prototype/app/layout.tsx",
+      "path": "workspace/product/v0.2/prototype/app/layout.tsx",
       "kind": "application",
-      "lines": 29,
-      "sha256": "6e1a8a44831fe22a041c592b8c00c1168f445dd0402f65178dba507815e573c2"
+      "lines": 28,
+      "sha256": "d191de00876c34a0e5900fad7e1655fd4e56682793f36d048cf030c77fdb66b3"
     },
     {
-      "path": "workspace/product/v0.1/prototype/app/map-overrides.css",
+      "path": "workspace/product/v0.2/prototype/app/page.tsx",
       "kind": "application",
-      "lines": 150,
-      "sha256": "b2cd466a948eb9182352b22722ef0d7ee4ae85f93edb0d35cc7c8aa98332e6e6"
+      "lines": 427,
+      "sha256": "9f448282ddd1d05bca1eaaf7d57727065d381980366a82c9c424ad15104076c5"
     },
     {
-      "path": "workspace/product/v0.1/prototype/app/page.tsx",
-      "kind": "application",
-      "lines": 435,
-      "sha256": "5c70c6f5910ece523bf23fc5d4128a64ffd9b073675744fc2dd0ac5fdfc0d577"
-    },
-    {
-      "path": "workspace/product/v0.1/prototype/build/sites-vite-plugin.ts",
+      "path": "workspace/product/v0.2/prototype/build/sites-vite-plugin.ts",
       "kind": "runtime",
       "lines": 46,
       "sha256": "abd6bc3a592961e978ab72fceb8ee7647824d9a2321ee5b5777b2a05d69526cc"
     },
     {
-      "path": "workspace/product/v0.1/prototype/db/index.ts",
+      "path": "workspace/product/v0.2/prototype/db/index.ts",
       "kind": "data",
       "lines": 14,
       "sha256": "effa59e46bcbb42dfb7b46911e809a1de0f2c37df1fd935e3dca89023eaf97e4"
     },
     {
-      "path": "workspace/product/v0.1/prototype/db/schema.ts",
+      "path": "workspace/product/v0.2/prototype/db/schema.ts",
       "kind": "data",
       "lines": 5,
       "sha256": "48b4f7fafee1f2720b8977ba31bc0cf03dedb7ea8826c4bcbc8dfd74f2d8744f"
     },
     {
-      "path": "workspace/product/v0.1/prototype/drizzle.config.ts",
+      "path": "workspace/product/v0.2/prototype/drizzle.config.ts",
       "kind": "configuration",
       "lines": 8,
       "sha256": "73d0807c58e541dc3eaf175909fb5acc966faed61f74ff659d9d55027bf3e25b"
     },
     {
-      "path": "workspace/product/v0.1/prototype/drizzle/meta/_journal.json",
+      "path": "workspace/product/v0.2/prototype/drizzle/meta/_journal.json",
       "kind": "data",
       "lines": 6,
       "sha256": "5a5f57f8f48fcf1d065725c0f3dab19e590e96e7e1e5bf8ddff17339a0de8d9a"
     },
     {
-      "path": "workspace/product/v0.1/prototype/eslint.config.mjs",
+      "path": "workspace/product/v0.2/prototype/eslint.config.mjs",
       "kind": "configuration",
       "lines": 19,
       "sha256": "275a07c13fc7c83a652efcfa9fb6a207c451a2f5088e6793415ce44281285720"
     },
     {
-      "path": "workspace/product/v0.1/prototype/examples/d1/app/api/notes/route.ts",
+      "path": "workspace/product/v0.2/prototype/examples/d1/app/api/notes/route.ts",
       "kind": "example",
       "lines": 59,
       "sha256": "b0b134b9b0b4a9f5947abbd13fd4425b88b59c64f91db1aacb0cecbc16c38f45"
     },
     {
-      "path": "workspace/product/v0.1/prototype/examples/d1/db/schema.ts",
+      "path": "workspace/product/v0.2/prototype/examples/d1/db/schema.ts",
       "kind": "example",
       "lines": 10,
       "sha256": "1acd70317bcaf22cb140436fb47754c2144e7c2adfc59a3f427ecb1d816fa0f3"
     },
     {
-      "path": "workspace/product/v0.1/prototype/next.config.ts",
+      "path": "workspace/product/v0.2/prototype/next.config.ts",
       "kind": "configuration",
       "lines": 8,
       "sha256": "a972c4f0ffa6dd714e7909b02d1ac19d2f2fe3d01f191efd2c5054bd6f142ec1"
     },
     {
-      "path": "workspace/product/v0.1/prototype/package.json",
+      "path": "workspace/product/v0.2/prototype/package.json",
       "kind": "configuration",
       "lines": 42,
-      "sha256": "6bc80d60ec7556556a5c4f5704b4b18dd70be0aad0ed3a58737f5c86988ed3c4"
+      "sha256": "7a60a68cdb1461dcdf870130c7c865459de86b4b6a92d8eaca8df06ea9a9c452"
     },
     {
-      "path": "workspace/product/v0.1/prototype/postcss.config.mjs",
+      "path": "workspace/product/v0.2/prototype/postcss.config.mjs",
       "kind": "configuration",
       "lines": 8,
       "sha256": "7b299d3d3b16699ddda397c0b2373b3af4f25f8fc9ccc9b3d9e64ef083bc1c21"
     },
     {
-      "path": "workspace/product/v0.1/prototype/tests/prototype.test.mjs",
+      "path": "workspace/product/v0.2/prototype/tests/prototype.test.mjs",
       "kind": "test",
-      "lines": 40,
-      "sha256": "51a63efbd0e21899c6e33bee5158897b81416d8aa263321d7ffa168fcbeb6ec8"
+      "lines": 132,
+      "sha256": "9e43f0c20a7243bc891acaa3a6764421701fba13530269ecc7b00c075df01edb"
     },
     {
-      "path": "workspace/product/v0.1/prototype/tsconfig.json",
+      "path": "workspace/product/v0.2/prototype/tsconfig.json",
       "kind": "configuration",
       "lines": 35,
       "sha256": "fbff01604d6cb54694be707f26e7a0eb21a6ef796b888c6a1dab1839fa7c6ccc"
     },
     {
-      "path": "workspace/product/v0.1/prototype/vite.config.ts",
+      "path": "workspace/product/v0.2/prototype/vite.config.ts",
       "kind": "configuration",
       "lines": 60,
       "sha256": "5d68239b2f24f42354e8a05cf69b83fd8f3ce34727f2edf2b55283e4f732c77a"
     },
     {
-      "path": "workspace/product/v0.1/prototype/worker/index.ts",
+      "path": "workspace/product/v0.2/prototype/worker/index.ts",
       "kind": "runtime",
       "lines": 48,
       "sha256": "6f8983ab616309202039ad672b1a46a835bede1bb77636dc751613c664f969e5"
@@ -144,173 +138,169 @@
   "routes": [
     {
       "route": "/",
-      "file": "workspace/product/v0.1/prototype/app/page.tsx",
+      "file": "workspace/product/v0.2/prototype/app/page.tsx",
       "kind": "page"
     },
     {
       "route": "/api/notes",
-      "file": "workspace/product/v0.1/prototype/examples/d1/app/api/notes/route.ts",
+      "file": "workspace/product/v0.2/prototype/examples/d1/app/api/notes/route.ts",
       "kind": "api"
     }
   ],
   "types": [
     {
       "name": "ChatGPTUser",
-      "file": "workspace/product/v0.1/prototype/app/chatgpt-auth.ts"
+      "file": "workspace/product/v0.2/prototype/app/chatgpt-auth.ts"
     },
     {
       "name": "Env",
-      "file": "workspace/product/v0.1/prototype/worker/index.ts"
+      "file": "workspace/product/v0.2/prototype/worker/index.ts"
     },
     {
       "name": "ExecutionContext",
-      "file": "workspace/product/v0.1/prototype/worker/index.ts"
+      "file": "workspace/product/v0.2/prototype/worker/index.ts"
     },
     {
       "name": "Ticket",
-      "file": "workspace/product/v0.1/prototype/app/page.tsx"
+      "file": "workspace/product/v0.2/prototype/app/page.tsx"
     },
     {
       "name": "TicketStatus",
-      "file": "workspace/product/v0.1/prototype/app/page.tsx"
+      "file": "workspace/product/v0.2/prototype/app/page.tsx"
     }
   ],
   "imports": [
     {
-      "from": "workspace/product/v0.1/prototype/app/chatgpt-auth.ts",
+      "from": "workspace/product/v0.2/prototype/app/chatgpt-auth.ts",
       "to": "next/headers"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/chatgpt-auth.ts",
+      "from": "workspace/product/v0.2/prototype/app/chatgpt-auth.ts",
       "to": "next/navigation"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/globals.css",
+      "from": "workspace/product/v0.2/prototype/app/globals.css",
       "to": "tailwindcss"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/layout.tsx",
+      "from": "workspace/product/v0.2/prototype/app/layout.tsx",
       "to": "./globals.css"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/layout.tsx",
-      "to": "./map-overrides.css"
-    },
-    {
-      "from": "workspace/product/v0.1/prototype/app/layout.tsx",
+      "from": "workspace/product/v0.2/prototype/app/layout.tsx",
       "to": "next"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/layout.tsx",
+      "from": "workspace/product/v0.2/prototype/app/layout.tsx",
       "to": "next/headers"
     },
     {
-      "from": "workspace/product/v0.1/prototype/app/page.tsx",
+      "from": "workspace/product/v0.2/prototype/app/page.tsx",
       "to": "react"
     },
     {
-      "from": "workspace/product/v0.1/prototype/build/sites-vite-plugin.ts",
+      "from": "workspace/product/v0.2/prototype/build/sites-vite-plugin.ts",
       "to": "node:fs/promises"
     },
     {
-      "from": "workspace/product/v0.1/prototype/build/sites-vite-plugin.ts",
+      "from": "workspace/product/v0.2/prototype/build/sites-vite-plugin.ts",
       "to": "node:path"
     },
     {
-      "from": "workspace/product/v0.1/prototype/build/sites-vite-plugin.ts",
+      "from": "workspace/product/v0.2/prototype/build/sites-vite-plugin.ts",
       "to": "vite"
     },
     {
-      "from": "workspace/product/v0.1/prototype/db/index.ts",
+      "from": "workspace/product/v0.2/prototype/db/index.ts",
       "to": "./schema"
     },
     {
-      "from": "workspace/product/v0.1/prototype/db/index.ts",
+      "from": "workspace/product/v0.2/prototype/db/index.ts",
       "to": "cloudflare:workers"
     },
     {
-      "from": "workspace/product/v0.1/prototype/db/index.ts",
+      "from": "workspace/product/v0.2/prototype/db/index.ts",
       "to": "drizzle-orm/d1"
     },
     {
-      "from": "workspace/product/v0.1/prototype/drizzle.config.ts",
+      "from": "workspace/product/v0.2/prototype/drizzle.config.ts",
       "to": "drizzle-kit"
     },
     {
-      "from": "workspace/product/v0.1/prototype/eslint.config.mjs",
+      "from": "workspace/product/v0.2/prototype/eslint.config.mjs",
       "to": "eslint-config-next/core-web-vitals"
     },
     {
-      "from": "workspace/product/v0.1/prototype/eslint.config.mjs",
+      "from": "workspace/product/v0.2/prototype/eslint.config.mjs",
       "to": "eslint-config-next/typescript"
     },
     {
-      "from": "workspace/product/v0.1/prototype/eslint.config.mjs",
+      "from": "workspace/product/v0.2/prototype/eslint.config.mjs",
       "to": "eslint/config"
     },
     {
-      "from": "workspace/product/v0.1/prototype/examples/d1/app/api/notes/route.ts",
+      "from": "workspace/product/v0.2/prototype/examples/d1/app/api/notes/route.ts",
       "to": "../../../../../db"
     },
     {
-      "from": "workspace/product/v0.1/prototype/examples/d1/app/api/notes/route.ts",
+      "from": "workspace/product/v0.2/prototype/examples/d1/app/api/notes/route.ts",
       "to": "../../../db/schema"
     },
     {
-      "from": "workspace/product/v0.1/prototype/examples/d1/app/api/notes/route.ts",
+      "from": "workspace/product/v0.2/prototype/examples/d1/app/api/notes/route.ts",
       "to": "drizzle-orm"
     },
     {
-      "from": "workspace/product/v0.1/prototype/examples/d1/db/schema.ts",
+      "from": "workspace/product/v0.2/prototype/examples/d1/db/schema.ts",
       "to": "drizzle-orm"
     },
     {
-      "from": "workspace/product/v0.1/prototype/examples/d1/db/schema.ts",
+      "from": "workspace/product/v0.2/prototype/examples/d1/db/schema.ts",
       "to": "drizzle-orm/sqlite-core"
     },
     {
-      "from": "workspace/product/v0.1/prototype/next.config.ts",
+      "from": "workspace/product/v0.2/prototype/next.config.ts",
       "to": "next"
     },
     {
-      "from": "workspace/product/v0.1/prototype/tests/prototype.test.mjs",
+      "from": "workspace/product/v0.2/prototype/tests/prototype.test.mjs",
       "to": "node:assert/strict"
     },
     {
-      "from": "workspace/product/v0.1/prototype/tests/prototype.test.mjs",
+      "from": "workspace/product/v0.2/prototype/tests/prototype.test.mjs",
       "to": "node:fs/promises"
     },
     {
-      "from": "workspace/product/v0.1/prototype/tests/prototype.test.mjs",
+      "from": "workspace/product/v0.2/prototype/tests/prototype.test.mjs",
       "to": "node:test"
     },
     {
-      "from": "workspace/product/v0.1/prototype/vite.config.ts",
+      "from": "workspace/product/v0.2/prototype/vite.config.ts",
       "to": "./.openai/hosting.json"
     },
     {
-      "from": "workspace/product/v0.1/prototype/vite.config.ts",
+      "from": "workspace/product/v0.2/prototype/vite.config.ts",
       "to": "./build/sites-vite-plugin"
     },
     {
-      "from": "workspace/product/v0.1/prototype/vite.config.ts",
+      "from": "workspace/product/v0.2/prototype/vite.config.ts",
       "to": "vinext"
     },
     {
-      "from": "workspace/product/v0.1/prototype/vite.config.ts",
+      "from": "workspace/product/v0.2/prototype/vite.config.ts",
       "to": "vite"
     },
     {
-      "from": "workspace/product/v0.1/prototype/worker/index.ts",
+      "from": "workspace/product/v0.2/prototype/worker/index.ts",
       "to": "vinext/server/app-router-entry"
     },
     {
-      "from": "workspace/product/v0.1/prototype/worker/index.ts",
+      "from": "workspace/product/v0.2/prototype/worker/index.ts",
       "to": "vinext/server/image-optimization"
     }
   ],
   "tests": [
-    "workspace/product/v0.1/prototype/tests/prototype.test.mjs"
+    "workspace/product/v0.2/prototype/tests/prototype.test.mjs"
   ],
-  "graph_sha256": "0093797ffeba53a2bb1bbf02ab8c6b0b46f6130dc306c039db23de45aed79a94"
+  "graph_sha256": "46d75efc5c754446f803469ddc8c7ebab9b5b25c7582a836aeaa0cab3246e5c6"
 }

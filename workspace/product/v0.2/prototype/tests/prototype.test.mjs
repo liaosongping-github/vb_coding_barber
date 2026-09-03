@@ -61,6 +61,15 @@ test("v0.2 用户首页显示登录昵称和附近理发师", async () => {
   assert.doesNotMatch(page, /<h3>常去的理发师<\/h3><span>实时更新<\/span>/);
 });
 
+test("v0.2 确认取号后进入我的排队进行中", async () => {
+  const page = await readFile(new URL("app/page.tsx", prototypeRoot), "utf8");
+  const joinQueue = page.slice(page.indexOf("const joinQueue"), page.indexOf("const finish"));
+  assert.match(joinQueue, /setDetail\(null\)/);
+  assert.match(joinQueue, /setUserTab\("排队"\)/);
+  assert.ok(joinQueue.indexOf("setDetail(null)") < joinQueue.indexOf('setUserTab("排队")'));
+  assert.match(page, /useState<"进行中" \| "已过号" \| "已完成">\("进行中"\)/);
+});
+
 test("生产构建生成可部署 Worker 入口", async () => {
   await access(new URL("dist/server/index.js", prototypeRoot));
   await access(new URL("dist/.openai/hosting.json", prototypeRoot));

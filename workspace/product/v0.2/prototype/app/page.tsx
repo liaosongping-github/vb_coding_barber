@@ -84,6 +84,7 @@ export default function Home() {
     setTickets(prev => [...prev, ...created]);
     setModal(null);
     notify(`已在${target.name}取得 ${people} 个连续号码`);
+    setDetail(null);
     setUserTab("排队");
   };
 

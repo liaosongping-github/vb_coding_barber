@@ -6,7 +6,7 @@
 - `平台战略.md`：背景、定位和战略目标。
 - `用户与场景.md`：角色与核心场景。
 - `术语表.md`：统一术语。
-- `business-rules.md`：v0.1 权威规则。
+- `business-rules.md`：v0.2 权威规则。
 - `service-flow.md`：取号、服务、过号、顺延和关店流程。
 - `权限与通知.md`：身份、权限和提醒。
 ## 使用入口
@@ -16,6 +16,6 @@
 ## 维护规则
 业务规则变更必须创建新版本，并同步 PRD、验收标准和测试。
 ## 当前状态
-v0.1 已定稿。
+v0.1 已冻结；v0.2 试运行 MVP 已定稿。
 ## 相关链接
-[v0.1 PRD](../../workspace/product/v0.1/PRD.md) · [领域模型](../engineering/architecture/domain-model.md)
+[v0.2 PRD](../../workspace/product/v0.2/PRD.md) · [领域模型](../engineering/architecture/domain-model.md)

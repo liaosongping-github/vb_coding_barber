@@ -11,7 +11,6 @@
 ## 维护规则
 每条定稿业务规则至少对应一个测试场景；缺陷修复必须增加回归覆盖。
 ## 当前状态
-v0.1 用例已建立，自动化覆盖以构建和冒烟测试为主。
+v0.1 与 v0.2 用例已建立，v0.2 自动化覆盖构建、范围和关键交互回归。
 ## 相关链接
-[v0.1 验收标准](../product/v0.1/acceptance-criteria.md) · [测试规则](AGENTS.md)
-
+[v0.1 验收标准](../product/v0.1/acceptance-criteria.md) · [v0.2 验收标准](../product/v0.2/acceptance-criteria.md) · [测试规则](AGENTS.md)

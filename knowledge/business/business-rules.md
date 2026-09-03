@@ -1,13 +1,13 @@
 ---
-title: v0.1 业务规则
+title: v0.2 业务规则
 owner_role: product
 status: finalized
-applies_to: v0.1
-last_verified_at: 2026-08-01
-related: workspace/product/v0.1/acceptance-criteria.md
+applies_to: v0.2
+last_verified_at: 2026-09-03
+related: workspace/product/v0.2/acceptance-criteria.md
 ---
 
-# v0.1 业务规则
+# v0.2 业务规则
 
 ## 取号与名额
 
@@ -27,7 +27,6 @@ related: workspace/product/v0.1/acceptance-criteria.md
 ## 多队列
 
 - 多个理发师的号码互不自动取消。
-- 顾客开始接受某位理发师服务时，提示是否取消其他号码，但不强制。
 
 ## 营业与跨日
 
@@ -36,7 +35,13 @@ related: workspace/product/v0.1/acceptance-criteria.md
 - 服务中的号码必须先完成才能关店。
 - 非空队列强制关店时二次确认，并将等待、待核验和顺延号码统一过号。
 
-## v0.1 范围外
+## 地址与用户端范围
+
+- 服务地址只使用文字信息，开店不依赖地图定位。
+- 用户端不提供地图、距离、导航、收藏和用户个人页。
+- 理发师工作台与个人页不展示地址；地址只在开店流程和用户查看服务地点时使用。
+- 过号号码确认顺延后，排在当前“下一位”之后、普通等待号码之前。
+
+## v0.2 范围外
 
 未来日期预约、在线支付、押金、评分评论、服务项目选择、签到和跨日排队均不在 v0.1 范围。
-

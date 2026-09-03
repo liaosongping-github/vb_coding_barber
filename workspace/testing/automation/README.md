@@ -3,7 +3,7 @@
 ## 目录用途
 说明和承载跨产品版本的自动化测试脚本。
 ## 内容索引
-当前自动化脚本位于 v0.1 原型的 `tests/`；生产工程启动后在此建立共享测试套件。
+当前自动化脚本位于 v0.2 原型的 `tests/`；生产工程启动后在此建立共享测试套件。
 ## 使用入口
 从仓库根目录运行 `pnpm test` 或 `pnpm release:check`。
 ## 上下游关系
@@ -13,4 +13,4 @@
 ## 当前状态
 已覆盖工作空间治理、原型构建和源代码冒烟检查。
 ## 相关链接
-[治理工具](../../../scripts/knowledge/README.md) · [原型测试](../../product/v0.1/prototype/tests/README.md)
+[治理工具](../../../scripts/knowledge/README.md) · [v0.2 原型测试](../../product/v0.2/prototype/tests/README.md)

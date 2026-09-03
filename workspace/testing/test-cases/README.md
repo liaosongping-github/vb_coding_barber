@@ -3,7 +3,7 @@
 ## 目录用途
 按产品版本保存人工和可自动化的业务测试场景。
 ## 内容索引
-`v0.1-test-cases.md` 覆盖当前原型验收场景。
+`v0.1-test-cases.md` 保存冻结基线；`v0.2-test-cases.md` 覆盖试运行 MVP 验收场景。
 ## 使用入口
 先读取对应产品版本的验收标准，再执行用例。
 ## 上下游关系
@@ -11,7 +11,6 @@
 ## 维护规则
 用例必须包含前置条件、操作、预期结果和覆盖规则。
 ## 当前状态
-v0.1 已定稿。
+v0.1 与 v0.2 用例均已定稿。
 ## 相关链接
-[v0.1 验收标准](../../product/v0.1/acceptance-criteria.md)
-
+[v0.1 验收标准](../../product/v0.1/acceptance-criteria.md) · [v0.2 验收标准](../../product/v0.2/acceptance-criteria.md)
